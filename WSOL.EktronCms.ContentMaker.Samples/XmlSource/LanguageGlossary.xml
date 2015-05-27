@@ -1,0 +1,20 @@
+﻿<p>Instructions: Set the key which is same across all languages, then language specific value</p>
+<table id="LanguageSets" name="LanguageSets" ektdesignns_caption="Language Sets" ektdesignns_name="LanguageSets" title="Language Sets" ektdesignns_nodetype="element" cellpadding="0" cellspacing="0" border="0" summary="Language Sets" style="width: 100%;">
+  <caption>Glossary</caption>
+  <thead>
+    <tr>
+      <th>Key:</th>
+      <th>Value:</th>
+    </tr>
+  </thead>
+  <tbody ektdesignns_list="true">
+    <tr id="Set" name="Set" ektdesignns_caption="Set" ektdesignns_name="Set" title="Set" ektdesignns_nodetype="element" ektdesignns_minoccurs="0" ektdesignns_maxoccurs="unbounded">
+      <td>
+        <input type="text" name="Key" id="Key" ektdesignns_caption="Key" ektdesignns_name="Key" title="Key" ektdesignns_indexed="false" ektdesignns_nodetype="element" size="50" class="design_textfield" />
+      </td>
+      <td>
+        <input type="text" name="Value" id="Value" ektdesignns_caption="Value" ektdesignns_name="Value" title="Value" ektdesignns_indexed="false" ektdesignns_nodetype="element" size="50" class="design_textfield" />
+      </td>
+    </tr>
+  </tbody>
+</table>

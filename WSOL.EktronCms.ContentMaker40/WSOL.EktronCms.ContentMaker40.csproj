@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <AutoVersion>true</AutoVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4232C8D6-0FD3-4F7B-A581-9BD8991117E8}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WSOL.EktronCms.ContentMaker</RootNamespace>
+    <AssemblyName>WSOL.EktronCms.ContentMakerNet40</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ektron.Cms.Api">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.BusinessApi">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.BusinessApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.BusinessApi.XmlSerializers">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.BusinessApi.XmlSerializers.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.BusinessObjects">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.BusinessObjects.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.BusinessObjects.Caching">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.BusinessObjects.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Commerce">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Commerce.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Commerce.Providers">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Commerce.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Common">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.CommonUI">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.CommonUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Community">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Community.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Content">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Content.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Content.XmlSerializers">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Content.XmlSerializers.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Contracts">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Controls">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Controls.Connection">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Controls.Connection.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Controls.Explorer">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Controls.Explorer.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.DataAccess">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.DataRW">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.DataRW.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.DataSets">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.DataSets.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.EktLDAP">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.EktLDAP.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Font">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Font.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Framework">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Framework.UI">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Framework.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Framework.UI.Controls">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Framework.UI.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Framework.UI.Controls.EktronUI">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Framework.UI.Controls.EktronUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Framework.UI.Registration">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Framework.UI.Registration.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Framework.UI.Services">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Framework.UI.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Instrumentation">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Instrumentation.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Library">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Library.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.License">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.License.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Mobile">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Mobile.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Modules">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Modules.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.ObjectFactory">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.ObjectFactory.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Personalization">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Personalization.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Providers">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.RulesEngine">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.RulesEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Search">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Search.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Search.Proxies">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Search.Proxies.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Search.Strategies">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Search.Strategies.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Settings.UrlAliasing.Strategies">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Settings.UrlAliasing.Strategies.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Site">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Site.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Sync">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Sync.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Sync.Client">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Sync.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.ToolBar">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.ToolBar.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.URLAliasing">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.URLAliasing.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.User">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.User.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.WebCalendar">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.WebCalendar.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.WebSearch">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.WebSearch.dll</HintPath>
+    </Reference>
+    <Reference Include="Ektron.Cms.Widget">
+      <HintPath>..\packages\WSOL.ReferencePackages.EktronV87.1.0.0\lib\net40\Ektron.Cms.Widget.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WSOL.IocContainer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WSOL.IocContainer.2.5.0\lib\net35\WSOL.IocContainer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="WSOL\Custom\ContentMaker\DependencyResolver.cs" />
+    <Compile Include="WSOL\Custom\ContentMaker\ErrorPageModuleSetup.cs" />
+    <Compile Include="WSOL\Custom\ContentMaker\SiteSetup.cs" />
+    <Compile Include="WSOL\EktronCms\ContentMaker\Extensions\LanguageExtensions.cs" />
+    <Compile Include="WSOL\EktronCms\ContentMaker\Extensions\UserExtensions.cs" />
+    <Compile Include="WSOL\EktronCms\ContentMaker\Extensions\SmartformExtensions.cs" />
+    <Compile Include="WSOL\EktronCms\ContentMaker\Extensions\FolderDataExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="packages.config" />
+    <Compile Include="WSOL\EktronCms\ContentMaker\ContentFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WSOL\EktronCms\ContentMaker\Extensions\AccessExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WSOL\EktronCms\ContentMaker\Extensions\CacheExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WSOL\EktronCms\ContentMaker\Extensions\ContentDataExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WSOL\EktronCms\ContentMaker\Extensions\EktronFrameworkExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WSOL\EktronCms\ContentMaker\FrameworkFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WSOL\EktronCms\ContentMaker\GlossaryFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WSOL\EktronCms\ContentMaker\NavigationFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WSOL\EktronCms\ContentMaker\Resolvers\NavigationItemFixRelativeLinkResolver.cs" />
+    <Compile Include="WSOL\EktronCms\ContentMaker\Resolvers\NavigationItemSelectedResolver.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WSOL\EktronCms\ContentMaker\Resolvers\NavigationItemVisibleResolver.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WSOL\EktronCms\ContentMaker\SettingsFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <Content Include="WSOL.IoCContainer.InitializationModule.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WSOL.EktronCms.ContentMaker\WSOL.EktronCms.ContentMaker.csproj">
+      <Project>{c6095cd5-d366-4f37-98cd-6c8c22fca1a7}</Project>
+      <Name>WSOL.EktronCms.ContentMaker</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>start XCOPY /i /e /s /y /f "$(ProjectDir)bin\WSOL.EktronCms*" "$(SolutionDir)WSOL.EktronCms.ContentMaker\bin\net40\"
+start XCOPY /i /e /s /y /f "$(ProjectDir)WSOL\*" "$(SolutionDir)WSOL.EktronCms.ContentMaker\content\net40\WSOL\"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

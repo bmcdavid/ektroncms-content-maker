@@ -1,0 +1,20 @@
+﻿<table style="width: 100%;">
+  <tbody>
+    <tr>
+      <td style="width: 20%;">Folder ID:</td>
+      <td>
+        &#160;<ektdesignns_resource ektdesignns_maxoccurs="unbounded" ektdesignns_foldernavigation="descendant" onblur="design_validate_re(/^[0-9]+$/,this,'Can not be blank');" ektdesignns_validation="content-req" ektdesignns_appearance="teaser" ektdesignns_searchby="folder " datavalue_idtype="folder" ektdesignns_nodetype="element" ektdesignns_indexed="false" title="FolderID" ektdesignns_name="FolderID" ektdesignns_caption="FolderID" name="FolderID" id="FolderID">
+          <span unselectable="on"></span>&#160;<img width="16" height="16" alt="Select Folder" src="/WorkArea/csslib/ContentDesigner/btnexplorefolder.gif" class="design_fieldbutton" unselectable="on" />
+        </ektdesignns_resource>
+        &#160;
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">Section Title:</td>
+      <td colspan="1">
+        &#160;<input type="text" class="design_textfield" size="24" ektdesignns_nodetype="element" ektdesignns_indexed="false" title="SectionTitle" ektdesignns_name="SectionTitle" ektdesignns_caption="SectionTitle" id="SectionTitle" name="SectionTitle" />
+        &#160;
+      </td>
+    </tr>
+  </tbody>
+</table>

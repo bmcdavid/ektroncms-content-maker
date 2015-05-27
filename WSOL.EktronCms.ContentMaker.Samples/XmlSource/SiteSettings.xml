@@ -1,0 +1,50 @@
+﻿<table style="width: 100%;">
+  <tbody>
+    <tr>
+      <td style="width: 20%;">Logo</td>
+      <td>
+        &#160;<ektdesignns_imageonly id="Logo" name="Logo" ektdesignns_caption="Logo" ektdesignns_name="Logo" title="Logo" ektdesignns_indexed="false" ektdesignns_nodetype="element" ektdesignns_content="element=img">
+          <img unselectable="on" class="design_fieldbutton" src="/WorkArea/csslib/ContentDesigner/btnimageonly.gif" alt="Select picture" width="16" height="16" />
+        </ektdesignns_imageonly>
+      </td>
+    </tr>
+    <tr>
+      <td>Logo Link:</td>
+      <td>
+        &#160;<ektdesignns_filelink id="LogoLink" name="LogoLink" ektdesignns_caption="Logo Link" ektdesignns_name="LogoLink" title="Logo Link" ektdesignns_indexed="false" ektdesignns_nodetype="element" ektdesignns_content="element=a/@href">
+          <a href="/"></a>
+          <img unselectable="on" class="design_fieldbutton" src="/WorkArea/csslib/ContentDesigner/btnfilelink.gif" alt="Select file" width="16" height="16" />
+        </ektdesignns_filelink>
+      </td>
+    </tr>
+    <tr>
+      <td>Copyright:</td>
+      <td>
+        &#160;<ektdesignns_richarea id="CopyrightText" name="CopyrightText" ektdesignns_caption="Copyright Text" ektdesignns_name="CopyrightText" title="Copyright Text" ektdesignns_indexed="false" ektdesignns_nodetype="element">&#160;</ektdesignns_richarea>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">Default Content ID:</td>
+      <td colspan="1">
+        &#160;<ektdesignns_resource id="DefaultContentID" name="DefaultContentID" ektdesignns_caption="Default Content ID" ektdesignns_name="DefaultContentID" title="Default Content ID" ektdesignns_indexed="false" ektdesignns_nodetype="element" datavalue_idtype="content" ektdesignns_searchby="folder taxonomy words " ektdesignns_filterby="content:htmlcontent content:smartform content:htmlform content:mso content:asset content:multimedia content:product " ektdesignns_minoccurs="0" ektdesignns_validation="content-req" onblur="design_validate_re(/^[0-9]+$/,this,'Can not be blank');">
+          <span unselectable="on"></span>&#160;<img unselectable="on" class="design_fieldbutton" src="/WorkArea/csslib/ContentDesigner/btnexplorefolder.gif" alt="Select Content" width="16" height="16" />
+        </ektdesignns_resource>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">Default Folder ID: (used to set search scope)</td>
+      <td colspan="1">
+        &#160;<ektdesignns_resource id="DefaultFolderID" name="DefaultFolderID" ektdesignns_caption="Default Folder ID" ektdesignns_name="DefaultFolderID" title="Default Folder ID" ektdesignns_indexed="false" ektdesignns_nodetype="element" datavalue_idtype="folder" ektdesignns_searchby="folder " ektdesignns_appearance="teaser" ektdesignns_minoccurs="0" ektdesignns_validation="content-req" onblur="design_validate_re(/^[0-9]+$/,this,'Can not be blank');">
+          <span unselectable="on"></span>&#160;<img unselectable="on" class="design_fieldbutton" src="/WorkArea/csslib/ContentDesigner/btnexplorefolder.gif" alt="Select Folder" width="16" height="16" />
+        </ektdesignns_resource>
+      </td>
+    </tr>
+    <tr>
+      <td>Main Menu ID:</td>
+      <td>
+        &#160;<input type="text" name="MainMenuID" id="MainMenuID" ektdesignns_caption="Main Menu ID" ektdesignns_name="MainMenuID" title="Main Menu ID Non-negative whole number (required)" ektdesignns_indexed="false" ektdesignns_nodetype="element" class="design_textfield" value="0" ektdesignns_validation="nonNegInt-req" ektdesignns_datatype="nonNegativeInteger" ektdesignns_basetype="number" ektdesignns_validate="re:/^\d+$/" ektdesignns_invalidmsg="Non-negative whole number (required)" onblur="design_validate_re(/^\d+$/,this,'Non-negative whole number (required)');" size="24" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p>&#160;</p>

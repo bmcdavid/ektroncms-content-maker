@@ -1,0 +1,102 @@
+﻿<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="HtmlAbove" type="rich" />
+        <xs:element name="HtmlBelow" type="rich" />
+        <xs:element name="Section" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Title" type="xs:string" />
+              <xs:element name="Link">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="a" type="aDesignType" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CssClass" type="xs:string" />
+              <xs:element name="InnerWrap" type="xs:boolean" default="false" />
+              <xs:element name="Unit" maxOccurs="5">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Size" default="1" type="xs:int" />
+                    <xs:element name="CssClass" type="xs:string" />
+                    <xs:element name="UnitPadding" type="xs:boolean" default="true" />
+                    <xs:element name="ContentItem" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Type" default="RichText">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="ContentBlock" />
+                                <xs:enumeration value="RichText" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="RichText" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="HTML" type="rich" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="ContentBlock" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="ContentID" minOccurs="0" type="xs:long" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="coreattrs">
+    <xs:attribute name="id" type="xs:ID" />
+    <xs:attribute name="class" type="xs:NMTOKENS" />
+    <xs:attribute name="style" type="xs:string" />
+    <xs:attribute name="title" type="xs:string" />
+  </xs:attributeGroup>
+  <xs:attributeGroup name="i18n">
+    <xs:attribute name="lang" type="xs:language" />
+    <xs:attribute name="dir">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="ltr" />
+          <xs:enumeration value="rtl" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="attrs">
+    <xs:attributeGroup ref="coreattrs" />
+    <xs:attributeGroup ref="i18n" />
+  </xs:attributeGroup>
+  <xs:simpleType name="FrameTarget">
+    <xs:restriction base="xs:NMTOKEN">
+      <xs:pattern value="_(blank|self|parent|top)|[A-Za-z]\c*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="aDesignType" mixed="true">
+    <xs:sequence>
+      <xs:any namespace="##any" processContents="skip" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attributeGroup ref="attrs" />
+    <xs:attribute name="href" type="xs:anyURI" />
+    <xs:attribute name="target" type="FrameTarget" />
+  </xs:complexType>
+  <xs:complexType name="rich" mixed="true">
+    <xs:sequence>
+      <xs:any namespace="##any" processContents="skip" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

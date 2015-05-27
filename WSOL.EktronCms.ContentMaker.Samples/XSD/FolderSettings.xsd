@@ -1,0 +1,49 @@
+﻿<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="FolderID" maxOccurs="unbounded" type="FolderIdRefType" />
+        <xs:element name="SectionTitle" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="idtypeType">
+    <xs:restriction base="xs:NMTOKEN">
+      <xs:pattern value="[a-z]+(:[\w\d\.\-]+)*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="IdRefType">
+    <xs:simpleContent>
+      <xs:extension base="xs:long">
+        <xs:attribute name="datavalue_idtype" use="required" type="idtypeType" />
+        <xs:attribute name="datavalue_displayvalue" type="xs:string" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ContentIdRefType">
+    <xs:simpleContent>
+      <xs:restriction base="IdRefType">
+        <xs:attribute name="datavalue_idtype" use="required">
+          <xs:simpleType>
+            <xs:restriction base="idtypeType">
+              <xs:pattern value="content(:[\w\d\.\-]+)*" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:restriction>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="FolderIdRefType">
+    <xs:simpleContent>
+      <xs:restriction base="IdRefType">
+        <xs:attribute name="datavalue_idtype" use="required">
+          <xs:simpleType>
+            <xs:restriction base="idtypeType">
+              <xs:pattern value="folder(:[\w\d\.\-]+)*" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:restriction>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

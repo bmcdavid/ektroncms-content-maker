@@ -1,0 +1,76 @@
+﻿<table style="width: 100%;">
+  <tbody>
+    <tr>
+      <td style="width: 20%; height: 18px;">Heading</td>
+      <td>
+        &#160;<input type="text" name="Heading" id="Heading" ektdesignns_caption="Heading" ektdesignns_name="Heading" title="Heading" ektdesignns_indexed="false" ektdesignns_nodetype="element" size="24" class="design_textfield" />
+      </td>
+    </tr>
+    <tr>
+      <td>Image</td>
+      <td>
+        &#160;<ektdesignns_imageonly id="Image" name="Image" ektdesignns_caption="Image" ektdesignns_name="Image" title="Image" ektdesignns_indexed="false" ektdesignns_minoccurs="0" ektdesignns_nodetype="element" ektdesignns_content="element=img">
+          <img unselectable="on" class="design_fieldbutton" src="/WorkArea/csslib/ContentDesigner/btnimageonly.gif" alt="Select picture" width="16" height="16" />
+        </ektdesignns_imageonly>
+      </td>
+    </tr>
+    <tr>
+      <td>External Link</td>
+      <td>
+        &#160;<ektdesignns_filelink id="Link" name="Link" ektdesignns_caption="Link" ektdesignns_name="Link" title="Link" ektdesignns_indexed="false" ektdesignns_minoccurs="0" ektdesignns_nodetype="element" ektdesignns_content="element=a">
+          <img unselectable="on" class="design_fieldbutton" src="/WorkArea/csslib/ContentDesigner/btnfilelink.gif" alt="Select file" width="16" height="16" />
+        </ektdesignns_filelink>
+      </td>
+    </tr>
+    <tr>
+      <td>Date</td>
+      <td>
+        &#160;<ektdesignns_calendar ektdesignns_basetype="calendar" id="Date" name="Date" ektdesignns_caption="Date" ektdesignns_name="Date" title="Date" ektdesignns_indexed="false" ektdesignns_nodetype="element" ektdesignns_default="$currentDate">
+          <input type="text" readonly="readonly" size="30" unselectable="on" />
+          <img unselectable="on" class="design_fieldbutton" src="/WorkArea/csslib/ContentDesigner/btncalendar.gif" alt="Select date" width="16" height="16" />
+        </ektdesignns_calendar>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">Body</td>
+      <td colspan="1">
+        &#160;<ektdesignns_richarea id="Body" name="Body" ektdesignns_caption="Body" ektdesignns_name="Body" title="Body" ektdesignns_indexed="false" ektdesignns_nodetype="element">&#160;</ektdesignns_richarea>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">Callouts:</td>
+      <td colspan="1">
+        &#160;<fieldset contenteditable="false" id="Callout" name="Callout" ektdesignns_caption="Callout" ektdesignns_name="Callout" ektdesignns_minoccurs="0" ektdesignns_maxoccurs="unbounded" ektdesignns_nodetype="element">
+          <legend contenteditable="true">Callout</legend>
+          <div class="design_membrane" contenteditable="true" ektdesignns_nodetype="content">
+            &#160;Alignment: <select name="Alignment" ektdesignns_maxoccurs="1" size="1" id="Alignment" ektdesignns_caption="Alignment" ektdesignns_name="Alignment" title="Alignment" ektdesignns_indexed="false" ektdesignns_nodetype="element">
+              <option selected="selected" value="right">Right</option>
+              <option value="left">Left</option>
+              <option value="center">Center</option>
+            </select>&#160;<div>
+              Bookmark:&#160;<input type="text" name="Bookmark" id="Bookmark" ektdesignns_caption="Bookmark" ektdesignns_name="Bookmark" title="Bookmark" ektdesignns_indexed="false" ektdesignns_nodetype="element" size="24" class="design_textfield" />
+            </div>
+            <div>
+              Heading:&#160;<input type="text" name="Heading" id="Heading" ektdesignns_caption="Heading" ektdesignns_name="Heading" title="Heading" ektdesignns_indexed="false" ektdesignns_nodetype="element" size="24" class="design_textfield" />
+            </div>
+            <p>
+              <span style="font-size: 12px;">
+                Image:&#160;<ektdesignns_imageonly id="Image" name="Image" ektdesignns_caption="Image" ektdesignns_name="Image" title="Image" ektdesignns_indexed="false" ektdesignns_nodetype="element" ektdesignns_content="element=img" ektdesignns_minoccurs="0">
+                  <img unselectable="on" class="design_fieldbutton" src="/WorkArea/csslib/ContentDesigner/btnimageonly.gif" alt="Select picture" width="16" height="16" />
+                </ektdesignns_imageonly>
+              </span><span style="font-size: 12px; line-height: 0;">&#160;</span>&#160;&#160;
+            </p>
+            <p>&#160;</p>
+            <p>
+              Link:&#160;<ektdesignns_filelink id="Link" name="Link" ektdesignns_caption="Link" ektdesignns_name="Link" title="Link" ektdesignns_indexed="false" ektdesignns_minoccurs="0" ektdesignns_nodetype="element" ektdesignns_content="element=a">
+                <img unselectable="on" class="design_fieldbutton" src="/WorkArea/csslib/ContentDesigner/btnfilelink.gif" alt="Select file" width="16" height="16" />
+              </ektdesignns_filelink>
+            </p>
+            <p>Caption:&#160;</p>
+            <ektdesignns_richarea id="Caption" name="Caption" ektdesignns_caption="Caption" ektdesignns_name="Caption" title="Caption" ektdesignns_indexed="false" ektdesignns_nodetype="element">&#160;</ektdesignns_richarea>
+          </div>
+        </fieldset>
+      </td>
+    </tr>
+  </tbody>
+</table>

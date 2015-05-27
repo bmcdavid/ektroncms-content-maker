@@ -1,0 +1,78 @@
+﻿<h3>Accordions or Tabs</h3>
+<table style="width: 100%;">
+  <tbody>
+    <tr>
+      <td style="width: 20%; height: 18px;">Html Above</td>
+      <td>
+        &#160;<ektdesignns_richarea id="HtmlAbove" name="HtmlAbove" ektdesignns_caption="Html Above" ektdesignns_name="HtmlAbove" title="Html Above" ektdesignns_indexed="false" ektdesignns_nodetype="element">&#160;</ektdesignns_richarea>
+      </td>
+    </tr>
+    <tr>
+      <td>Html Below</td>
+      <td>
+        &#160;<ektdesignns_richarea id="HtmlBelow" name="HtmlBelow" ektdesignns_caption="Html Below" ektdesignns_name="HtmlBelow" title="Html Below" ektdesignns_indexed="false" ektdesignns_nodetype="element">&#160;</ektdesignns_richarea>
+      </td>
+    </tr>
+    <tr>
+      <td>Style:</td>
+      <td>
+        &#160;<select name="Style" ektdesignns_maxoccurs="1" size="1" id="Style" ektdesignns_caption="Style" ektdesignns_name="Style" title="Style" ektdesignns_indexed="false" ektdesignns_nodetype="element">
+          <option selected="selected" value="Tabs">Tabs</option>
+          <option value="Accordion">Accordion</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Items:</td>
+      <td>
+        &#160;<fieldset contenteditable="false" id="Item" name="Item" ektdesignns_caption="Item" ektdesignns_name="Item" ektdesignns_minoccurs="0" ektdesignns_maxoccurs="unbounded" ektdesignns_nodetype="element">
+          <legend contenteditable="true">Complex Item</legend>
+          <div class="design_membrane" contenteditable="true" ektdesignns_nodetype="content">
+            <div>
+              Title:&#160;<input type="text" name="ItemTitle" id="ItemTitle" ektdesignns_caption="ItemTitle" ektdesignns_name="ItemTitle" title="Item Title" ektdesignns_indexed="false" ektdesignns_nodetype="element" size="24" class="design_textfield" />
+            </div>
+            <div>
+              <span style="font-size: 12px; line-height: 1.5;">
+                Teaser: <textarea name="ItemTeaser" id="ItemTeaser" ektdesignns_caption="Item Teaser" ektdesignns_name="ItemTeaser" title="Item Teaser" ektdesignns_indexed="false" ektdesignns_nodetype="element" cols="24" rows="3" class="design_textfield"></textarea>
+
+
+
+
+
+                &#160;
+              </span>
+            </div>
+            <fieldset contenteditable="false" id="ItemContent" name="ItemContent" ektdesignns_caption="Item Content" ektdesignns_name="ItemContent" ektdesignns_maxoccurs="unbounded" ektdesignns_nodetype="element">
+              <legend contenteditable="true">Content</legend>
+              <div class="design_membrane" contenteditable="true" ektdesignns_nodetype="content">
+                Type:&#160;<select name="ItemType" ektdesignns_maxoccurs="1" size="1" id="ItemType" ektdesignns_caption="ItemType" ektdesignns_name="ItemType" title="ItemType" ektdesignns_indexed="false" ektdesignns_nodetype="element">
+                  <option selected="selected" value="RichText">Rich Text</option>
+                  <option value="ContentBlock">Content Block</option>
+                </select>&#160;<div>
+                  <fieldset contenteditable="false" id="RichText" name="RichText" ektdesignns_caption="RichText" ektdesignns_name="RichText" ektdesignns_nodetype="element" class="design_group" ektdesignns_relevant="xpathr:../ItemType = 'RichText'">
+                    <legend contenteditable="true">RichText</legend>
+                    <div class="design_membrane" contenteditable="true" ektdesignns_nodetype="content">
+                      &#160;<ektdesignns_richarea id="HTML" name="HTML" ektdesignns_caption="HTML" ektdesignns_name="HTML" title="HTML" ektdesignns_indexed="false" ektdesignns_nodetype="element">&#160;</ektdesignns_richarea>
+                    </div>
+                  </fieldset>
+                  <fieldset contenteditable="false" id="ContentBlock" name="ContentBlock" ektdesignns_caption="ContentBlock" ektdesignns_name="ContentBlock" ektdesignns_nodetype="element" class="design_group" ektdesignns_relevant="xpathr:../ItemType = 'ContentBlock'">
+                    <legend contenteditable="true">Content Block</legend>
+                    <div class="design_membrane" contenteditable="true" ektdesignns_nodetype="content">
+                      &#160;<ektdesignns_resource id="ContentItem" name="ContentItem" ektdesignns_caption="ContentItem" ektdesignns_name="ContentItem" title="ContentItem" ektdesignns_indexed="false" ektdesignns_nodetype="element" datavalue_idtype="content" ektdesignns_searchby="folder taxonomy words " ektdesignns_filterby="content:htmlcontent content:smartform content:htmlform content:mso content:asset content:multimedia content:product " ektdesignns_minoccurs="0" ektdesignns_validation="content-req" onblur="design_validate_re(/^[0-9]+$/,this,'Can not be blank');">
+                        <span unselectable="on"></span>&#160;<img unselectable="on" class="design_fieldbutton" src="/WorkArea/csslib/ContentDesigner/btnexplorefolder.gif" alt="Select Content" width="16" height="16" />
+                      </ektdesignns_resource>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </fieldset>
+      </td>
+    </tr>
+    <tr>
+      <td>&#160;</td>
+      <td>&#160;</td>
+    </tr>
+  </tbody>
+</table>

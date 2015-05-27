@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <appSettings xdt:Transform="InsertIfMissing">
+    <add key="WSOL.EktronCms.ContentMaker.Username" value="" xdt:Transform="InsertIfMissing" xdt:Locator="Match(key)"/>
+    <add key="WSOL.EktronCms.ContentMaker.Password" value="" xdt:Transform="InsertIfMissing" xdt:Locator="Match(key)"/>
+    <add key="WSOL.EktronCms.ContentMaker.Domain" value="" xdt:Transform="InsertIfMissing" xdt:Locator="Match(key)"/>
+    <add key="WSOL.EktronCms.ContentMaker.Compiled" value="false" xdt:Transform="InsertIfMissing" xdt:Locator="Match(key)"/>
+    <add key="WSOL.EktronCms.ContentMaker.EnableFileWatcher" value="false" xdt:Transform="InsertIfMissing" xdt:Locator="Match(key)"/>
+    <add key="WSOL.EktronCms.ContentMaker.ViewsPath" value="~/Views" xdt:Transform="InsertIfMissing" xdt:Locator="Match(key)"/>
+  </appSettings>
+  <system.web xdt:Transform="InsertIfMissing">
+    <pages xdt:Transform="InsertIfMissing">
+      <namespaces xdt:Transform="InsertIfMissing">
+        <add namespace="WSOL.EktronCms.ContentMaker" xdt:Transform="InsertIfMissing" xdt:Locator="Match(namespace)"/>
+        <add namespace="WSOL.EktronCms.ContentMaker.Extensions" xdt:Transform="InsertIfMissing" xdt:Locator="Match(namespace)"/>
+      </namespaces>
+      <controls xdt:Transform="InsertIfMissing">
+        <add tagPrefix="WSOL" namespace="WSOL.EktronCms.ContentMaker.WebControls" assembly="WSOL.EktronCms.ContentMaker" xdt:Transform="InsertIfMissing" xdt:Locator="Match(namespace)"/>
+      </controls>
+    </pages>
+  </system.web>  
+</configuration>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <authors>$author$</authors>
+    <owners>Brad McDavid, Steve Stanley</owners>
+    <iconUrl>http://nuget.wsoldev.com/nuget.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>$title$</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>WSOL IContent Renderer Models Views</tags>
+    <dependencies>
+      <group targetFramework="net35">
+        <dependency id="WSOL.EktronCms.ContentMaker" version="1.0.0" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="tools\*.ps1" target="tools\net35" />
+  </files>
+</package>

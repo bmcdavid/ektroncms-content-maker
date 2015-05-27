@@ -1,0 +1,123 @@
+﻿<p>
+  <strong>Instructions</strong>: Sections are horizontal rows that take up the full width. Units are vertical columns within a section. Units can be mix of content blocks and rich text.
+</p>
+<table style="width: 100%;">
+  <tbody>
+    <tr>
+      <td style="width: 20%;">HTML Above Sections:</td>
+      <td>
+        <ektdesignns_richarea id="HtmlAbove" name="HtmlAbove" ektdesignns_caption="Html Above" ektdesignns_name="HtmlAbove" title="Html Above" ektdesignns_indexed="false" ektdesignns_nodetype="element" style="">&#160;</ektdesignns_richarea>
+      </td>
+    </tr>
+    <tr>
+      <td>HTML Below Sections:</td>
+      <td>
+        &#160;<ektdesignns_richarea id="HtmlBelow" name="HtmlBelow" ektdesignns_caption="Html Below" ektdesignns_name="HtmlBelow" title="Html Below" ektdesignns_indexed="false" ektdesignns_nodetype="element" style="">&#160;</ektdesignns_richarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<hr />
+<fieldset contenteditable="false" id="Section" name="Section" ektdesignns_caption="Section" ektdesignns_name="Section" ektdesignns_maxoccurs="unbounded" ektdesignns_nodetype="element">
+  <legend contenteditable="true">Section</legend>
+  <div class="design_membrane" contenteditable="true" ektdesignns_nodetype="content">
+    <div>
+      Title:&#160;<input type="text" name="Title" id="Title" ektdesignns_caption="Title" ektdesignns_name="Title" title="Title" ektdesignns_indexed="false" ektdesignns_nodetype="element" style="" size="24" class="design_textfield" />
+      &#160;
+    </div>
+    <p>
+      Link:&#160;<ektdesignns_filelink id="Link" name="Link" ektdesignns_caption="Link" ektdesignns_name="Link" title="Link" ektdesignns_indexed="false" ektdesignns_nodetype="element" ektdesignns_content="element=a" style="">
+        <img unselectable="on" class="design_fieldbutton" src="/WorkArea/csslib/ContentDesigner/btnfilelink.gif" alt="Select file" width="16" height="16" />
+      </ektdesignns_filelink>
+      &#160;
+    </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    CSS Class:&#160;<input type="text" name="CssClass" id="CssClass" ektdesignns_caption="CssClass" ektdesignns_name="CssClass" title="CssClass" ektdesignns_indexed="false" ektdesignns_nodetype="element" style="" size="24" class="design_textfield" /><div>
+      Inner Wrap:&#160;<input type="checkbox" name="InnerWrap" ektdesignns_nodetype="element" id="InnerWrap" ektdesignns_caption="InnerWrap" ektdesignns_name="InnerWrap" title="InnerWrap" ektdesignns_indexed="false" value="on" /><label for="InnerWrap"></label><br /><fieldset contenteditable="false" id="Unit" name="Unit" ektdesignns_caption="Unit" ektdesignns_name="Unit" ektdesignns_maxoccurs="5" ektdesignns_nodetype="element">
+        <legend contenteditable="true">Unit</legend>
+        <div class="design_membrane" contenteditable="true" ektdesignns_nodetype="content">
+          <div>
+            <table style="width: 100%;">
+              <tbody>
+                <tr>
+                  <td style="width: 20%;">Size:&#160;</td>
+                  <td>
+                    <select name="Size" ektdesignns_maxoccurs="1" size="1" id="Size" ektdesignns_caption="Size" ektdesignns_name="Size" title="Size" ektdesignns_indexed="false" ektdesignns_nodetype="element" style="">
+                      <option selected="selected" value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                    &#160;
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1">CSS Class:</td>
+                  <td colspan="1">
+                    &#160;<input type="text" name="CssClass" id="CssClass" ektdesignns_caption="CssClass" ektdesignns_name="CssClass" title="CssClass" ektdesignns_indexed="false" ektdesignns_nodetype="element" style="" size="24" class="design_textfield" />
+                    &#160;
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1">Unit Padding:</td>
+                  <td colspan="1">
+                    &#160;<input checked="checked" type="checkbox" name="UnitPadding" ektdesignns_nodetype="element" id="UnitPadding" ektdesignns_caption="UnitPadding" ektdesignns_name="UnitPadding" title="UnitPadding" ektdesignns_indexed="false" value="on" /><label for="UnitPadding"></label>
+                    &#160;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <fieldset contenteditable="false" id="ContentItem" name="ContentItem" ektdesignns_caption="Content Item" ektdesignns_name="ContentItem" ektdesignns_maxoccurs="unbounded" ektdesignns_nodetype="element">
+              <legend contenteditable="true">Content Item</legend>
+              <div class="design_membrane" contenteditable="true" ektdesignns_nodetype="content">
+                Type:&#160;<select name="Type" ektdesignns_maxoccurs="1" size="1" id="Type" ektdesignns_caption="Type" ektdesignns_name="Type" title="Type" ektdesignns_indexed="false" ektdesignns_nodetype="element" style="">
+                  <option value="ContentBlock">ContentBlock</option>
+                  <option selected="selected" value="RichText">RichText</option>
+                </select><fieldset contenteditable="false" id="RichText" name="RichText" ektdesignns_caption="Rich Text" ektdesignns_name="RichText" ektdesignns_nodetype="element" ektdesignns_relevant="xpathr:../Type = 'RichText'">
+                  <legend contenteditable="true">RichText</legend>
+                  <div class="design_membrane" contenteditable="true" ektdesignns_nodetype="content">
+                    <ektdesignns_richarea id="HTML" name="HTML" ektdesignns_caption="HTML" ektdesignns_name="HTML" title="HTML" ektdesignns_indexed="false" ektdesignns_nodetype="element" style=""></ektdesignns_richarea>
+                  </div>
+                </fieldset>
+                <fieldset contenteditable="false" id="ContentBlock" name="ContentBlock" ektdesignns_caption="ContentBlock" ektdesignns_name="ContentBlock" ektdesignns_nodetype="element" ektdesignns_relevant="xpathr:../Type = 'ContentBlock'">
+                  <legend contenteditable="true">Content Block</legend>
+                  <div class="design_membrane" contenteditable="true" ektdesignns_nodetype="content">
+                    <ektdesignns_resource id="ContentID" name="ContentID" ektdesignns_caption="ContentID" ektdesignns_name="ContentID" title="ContentID" ektdesignns_indexed="false" ektdesignns_nodetype="element" datavalue_idtype="content" ektdesignns_searchby="folder taxonomy words " ektdesignns_minoccurs="0" ektdesignns_validation="content-req" onblur="design_validate_re(/^[0-9]+$/,this,'Can not be blank');" ektdesignns_foldernavigation="descendant" ektdesignns_filterby="content:htmlcontent content:smartform content:htmlform content:mso content:asset content:multimedia content:product ">
+                      <span unselectable="on"></span>
+                      <img unselectable="on" class="design_fieldbutton" src="/WorkArea/csslib/ContentDesigner/btnexplorefolder.gif" alt="Select Content" width="16" height="16" />
+                    </ektdesignns_resource>
+                    &#160;
+                  </div>
+                </fieldset>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</fieldset>
+<p>&#160;</p>
+<p>&#160;</p>
+<p>&#160;</p>

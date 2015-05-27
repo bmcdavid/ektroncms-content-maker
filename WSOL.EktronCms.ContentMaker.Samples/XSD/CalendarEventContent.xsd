@@ -1,0 +1,37 @@
+﻿<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:dateTime" name="StartTime"/>
+        <xs:element type="xs:dateTime" name="EndTime"/>
+        <xs:element type="xs:time" name="Duration"/>
+        <xs:element type="xs:string" name="DisplayTitle"/>
+        <xs:element type="xs:string" name="Location"/>
+        <xs:element type="xs:string" name="IsAllDay"/>
+        <xs:element type="xs:string" name="Description"/>
+        <xs:element name="Recurrence">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="OriginatingTimeZone"/>
+              <xs:element type="xs:byte" name="RecurrenceType"/>
+              <xs:element type="xs:dateTime" name="RecurrenceEndDate"/>
+              <xs:element name="ReoccursWeekly">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:byte" name="Multiple"/>
+                    <xs:element type="xs:byte" name="numOccurences"/>
+                    <xs:element type="xs:byte" name="DaysOfWeek"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:string" name="IsVariance"/>
+        <xs:element type="xs:string" name="IsCancelled"/>
+        <xs:element type="xs:dateTime" name="OriginalStart"/>
+        <xs:element type="xs:string" name="OriginalTimeZone"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

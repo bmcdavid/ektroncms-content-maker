@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <system.web>
+    <pages>
+      <namespaces>
+        <add namespace="WSOL.EktronCms.ContentMaker" xdt:Transform="Remove" xdt:Locator="Match(namespace)"/>
+        <add namespace="WSOL.EktronCms.ContentMaker.Extensions" xdt:Transform="Remove" xdt:Locator="Match(namespace)"/>
+      </namespaces>
+      <controls>
+        <add tagPrefix="WSOL" namespace="WSOL.EktronCms.ContentMaker.WebControls" assembly="WSOL.EktronCms.ContentMaker" xdt:Transform="Remove" xdt:Locator="Match(namespace)"/>
+      </controls>
+    </pages>
+  </system.web>  
+</configuration>
