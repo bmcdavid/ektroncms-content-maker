@@ -10,10 +10,10 @@ Instructions for adding package sources can be found at:
 https://docs.nuget.org/consume/package-manager-dialog#package-sources
 
 ## Build Instructions
-Checkout this solution and install the following NuGet packages to the solution:
+Checkout this solution and install the following NuGet packages:
 * WSOL.IocContainer - DLL required to run
-* WSOL.MSBuild.AutoVersion.Git - required to build only, development dependendy only
-* WSOL.ReferencePackages.EktronV87 - required to build only, development dependendy only
+* WSOL.MSBuild.AutoVersion.Git - required to build only, development dependency only
+* WSOL.ReferencePackages.EktronV87 - required to build only, development dependency only
  
 Build and deploy the following files to an Ektron CMS site
 * WSOL.EktronCms.ContentMaker\bin\WSOL.IoCContainer.dll
