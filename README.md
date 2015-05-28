@@ -2,11 +2,12 @@
 The Ektron CMS content maker is designed to make EPiServer like views from model classes that wrap content types used for strongly typed smart forms.
 
 ## Getting Started
-
 Add WSOL's NuGet feed as a package source in Visual Studio. Below is the feed source:
+
 http://nuget.wsol.com/api/
 
 Instructions for adding package sources can be found at:
+
 https://docs.nuget.org/consume/package-manager-dialog#package-sources
 
 ## Build Instructions
@@ -21,8 +22,9 @@ Build and deploy the following files to an Ektron CMS site
 * WSOL.EktronCms.ContentMaker\Views\*
 * WSOL.EktronCms.ContentMaker40\WSOL\* to App_Code folder
  
-## Alternative
-Obtain the built Nuget Package from the WSOL NuGet feed for:
+## Or NuGet Install
+Alternatively, obtain the built Nuget package from the WSOL NuGet feed for:
+
 WSOL.EktronCms.ContentMaker
 
 ## Code Samples
