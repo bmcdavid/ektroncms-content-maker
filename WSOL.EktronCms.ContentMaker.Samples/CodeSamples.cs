@@ -77,8 +77,10 @@
             // GetContent Extension works for all types of ContentCriteria.
             var TypedItems = criteria.GetContent(adminMode).OfType<HtmlContent>();
 
-            // assigned to WSOL:Renderer for typed View displays
-            //rItems.ItemList = TypedItems; 
+            // can also prefilter by smart form type
+            // creates content criteria and sets xml config id filter to match value set in content descriptor of Article content
+            var articleCriteria = this.GetContentCriteria<ArticleContent>();
+            var articles = articleCriteria.GetContent();
 
             #endregion
 

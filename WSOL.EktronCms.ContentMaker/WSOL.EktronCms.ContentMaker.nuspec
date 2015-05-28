@@ -14,7 +14,7 @@
     <tags>WSOL IContent Renderer</tags>
   </metadata>
   <files>
-    <file src="bin\net35\WSOL.EktronCms.ContentMaker.dll" target="lib\net35" />
+    <!--<file src="bin\net35\WSOL.EktronCms.ContentMaker.dll" target="lib\net35" />-->
     <!--<file src="content\net40\**.**" target="content\net40" />-->
     <!--<file src="_PackageInfo\WSOL.EktronCms.ContentMaker\**.**" target="content\net40\_PackageInfo\WSOL.EktronCms.ContentMaker" />-->
     <!--<file src="WSOL\**.**" target="content\net40\WSOL" />-->    

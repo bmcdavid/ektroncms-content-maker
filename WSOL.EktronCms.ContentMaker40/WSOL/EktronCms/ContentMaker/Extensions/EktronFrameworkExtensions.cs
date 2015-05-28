@@ -6,6 +6,7 @@
     using Ektron.Cms.Framework.Content;
     using Ektron.Cms.Organization;
     using Ektron.Cms.User;
+    using WSOL.EktronCms.ContentMaker.Interfaces;
 
     public static class EktronFrameworkExtensions
     {
@@ -28,6 +29,16 @@
             {
                 criteria.AddFilter(ContentProperty.IsArchived, CriteriaFilterOperator.GreaterThan, -1);
             }
+
+            return criteria;
+        }
+
+        public static ContentCriteria GetContentCriteria<TModel>(this object o, bool returnExpired = false) where TModel : IContent
+        {
+            ContentCriteria criteria = GetContentCriteria(o, returnExpired);
+
+            // set xml config id from IContent Model
+            criteria.AddFilter(ContentProperty.XmlConfigurationId, CriteriaFilterOperator.EqualTo, typeof(TModel).GetXmlConfigId());
 
             return criteria;
         }

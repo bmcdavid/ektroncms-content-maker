@@ -260,6 +260,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeSamples.cs" />
+    <Compile Include="ContentRenderSamples.aspx.cs">
+      <DependentUpon>ContentRenderSamples.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ContentRenderSamples.aspx.designer.cs">
+      <DependentUpon>ContentRenderSamples.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\FractionHelpers.cs" />
     <Compile Include="Views\AccordionsOrTabs\Default.ascx.designer.cs">
       <DependentUpon>Default.ascx</DependentUpon>
@@ -302,6 +309,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="ContentRenderSamples.aspx" />
     <Content Include="Views\ArticleContent\Default.ascx" />
     <Content Include="Views\ArticleContent\ListView.ascx" />
     <Content Include="Views\CalendarEventContent\Default.ascx" />
