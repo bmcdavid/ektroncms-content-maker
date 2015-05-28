@@ -6,7 +6,10 @@
     using Ektron.Cms.Framework.Content;
     using Ektron.Cms.Organization;
     using Ektron.Cms.User;
+    using System;
+    using System.Linq;
     using WSOL.EktronCms.ContentMaker.Interfaces;
+    using WSOL.IocContainer;
 
     public static class EktronFrameworkExtensions
     {
@@ -36,9 +39,23 @@
         public static ContentCriteria GetContentCriteria<TModel>(this object o, bool returnExpired = false) where TModel : IContent
         {
             ContentCriteria criteria = GetContentCriteria(o, returnExpired);
+            Type t = typeof(TModel);
+            
+            if (t.IsAbstract || t.IsInterface) // many types
+            {
+                var types = t.IsAbstract ? t.ScanForBaseClass() : t.ScanForInterface();
 
-            // set xml config id from IContent Model
-            criteria.AddFilter(ContentProperty.XmlConfigurationId, CriteriaFilterOperator.EqualTo, typeof(TModel).GetXmlConfigId());
+                if (types != null && types.Any())
+                {
+                    // add xml config ids for all types that derive from interface or abstract model
+                    criteria.AddFilter(ContentProperty.XmlConfigurationId, CriteriaFilterOperator.In, types.Select(x => x.GetXmlConfigId()).ToList());
+                }
+            }
+            else // single concrete model
+            {
+                // set xml config id from IContent Model
+                criteria.AddFilter(ContentProperty.XmlConfigurationId, CriteriaFilterOperator.EqualTo, t.GetXmlConfigId());
+            }
 
             return criteria;
         }

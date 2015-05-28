@@ -5,7 +5,7 @@
     <version>$version$</version>
     <authors>$author$</authors>
     <owners>Brad McDavid</owners>
-    <projectUrl>https://github.com/bmcdavid/ektroncms-content-maker/wiki</projectUrl>
+    <projectUrl>https://github.com/bmcdavid/ektroncms-content-maker</projectUrl>
     <iconUrl>http://nuget.wsol.com/nuget.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>

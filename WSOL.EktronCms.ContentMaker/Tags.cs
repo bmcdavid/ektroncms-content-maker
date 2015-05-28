@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using System.Web.Compilation;
+    using WSOL.IocContainer;
 
     /// <summary>
     /// To extend tags, inherit the class and create public const strings for your custom tags
@@ -39,27 +39,28 @@
             {
                 _TagList = new List<string>();
                 Type t = typeof(WSOL.EktronCms.ContentMaker.Tags);
+                var baseTypes = t.ScanForBaseClass().ToList();
 
-                foreach (Assembly a in BuildManager.GetReferencedAssemblies())
+                if(!baseTypes.Contains(t))
+                    baseTypes.Add(t);
+
+                foreach (Type type in baseTypes)
                 {
-                    foreach (Type type in a.GetTypes())
+                    //if (type == t || type.IsSubclassOf(t))
                     {
-                        if (type == t || type.IsSubclassOf(t))
+                        foreach (FieldInfo field in type.GetFields())
                         {
-                            foreach (FieldInfo field in type.GetFields())
-                            {
-                                if (field.FieldType == typeof(string) && field.IsLiteral && !field.IsInitOnly)
-                                    ((List<string>)_TagList).Add(field.GetRawConstantValue().ToString());
-                            }
+                            if (field.FieldType == typeof(string) && field.IsLiteral && !field.IsInitOnly)
+                                ((List<string>)_TagList).Add(field.GetRawConstantValue().ToString());
                         }
                     }
                 }
 
                 // Order alphabetically
-                _TagList = _TagList.OrderBy(x => x);
-
-                return _TagList;
+                _TagList = _TagList.OrderBy(x => x);                
             }
+
+            return _TagList;
         }
     }
 }
