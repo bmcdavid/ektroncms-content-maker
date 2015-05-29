@@ -29,20 +29,20 @@
 
             if (enabledPages.Contains(script))
             {
-                var id = FrameworkFactory.CurrentUserId();
+                var id = FrameworkFactory.CurrentUserId(false);
 
                 if (id == 0)
                 {
                     return true;
                 }
 
-                var userData = id.GetUserData(true);
+                //var userData = id.GetUserData(true);
 
-                // Disable for CMS Users
-                if (userData == null || userData.IsMemberShip)
-                {
-                    return true;
-                }
+                //// Disable for CMS Users
+                //if (userData == null || userData.IsMemberShip)
+                //{
+                //    return true;
+                //}
             }
 
             return false;
@@ -50,7 +50,7 @@
 
         public bool EnableModule
         {
-            get 
+            get
             {
                 bool enabled = false;
                 bool.TryParse(ConfigurationManager.AppSettings[appSettingEnable], out enabled);

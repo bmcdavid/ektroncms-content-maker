@@ -26,8 +26,10 @@
                 _ErrorPageHelper = InitializationContext.Locator.Get<IErrorPageModuleSetup>();
                 _ApplicationHelper = InitializationContext.Locator.Get<IApplicationHelper>();
 
-
-                context.AuthorizeRequest += (object sender, EventArgs e) => context_AuthorizeRequest(context);
+                if (_ErrorPageHelper != null && _ErrorPageHelper.EnableModule)
+                {
+                    context.AuthorizeRequest += (object sender, EventArgs e) => context_AuthorizeRequest(context);
+                }
             }
             catch (Exception e)
             {
@@ -42,7 +44,7 @@
 
             StatusCodeCheck(application.Context);
 
-            if (_ErrorPageHelper != null && _ErrorPageHelper.ExecuteErrorPage(application.Context, _CustomErrorsSection))
+            if (_ErrorPageHelper.ExecuteErrorPage(application.Context, _CustomErrorsSection))
             {
                 // get content for Dynamic Id
                 IContent content = _ErrorPageHelper.GetIContent(application.Context);
