@@ -43,7 +43,7 @@
             
             if (t.IsAbstract || t.IsInterface) // many types
             {
-                var types = t.IsAbstract ? t.ScanForBaseClass() : t.ScanForInterface();
+                var types = t.IsInterface ? t.ScanForInterface() : t.ScanForBaseClass();
 
                 if (types != null && types.Any())
                 {
