@@ -14,8 +14,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSOL.EktronCms.ContentMaker
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSOL.EktronCms.ContentMaker", "WSOL.EktronCms.ContentMaker\WSOL.EktronCms.ContentMaker.csproj", "{C6095CD5-D366-4F37-98CD-6C8C22FCA1A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSOL.EktronCms.ContentMaker35", "WSOL.EktronCms.ContentMaker35\WSOL.EktronCms.ContentMaker35.csproj", "{7C9D09BE-796D-4D2E-BFD9-3C27D6A3E6DD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,10 +32,6 @@ Global
 		{C6095CD5-D366-4F37-98CD-6C8C22FCA1A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6095CD5-D366-4F37-98CD-6C8C22FCA1A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6095CD5-D366-4F37-98CD-6C8C22FCA1A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7C9D09BE-796D-4D2E-BFD9-3C27D6A3E6DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C9D09BE-796D-4D2E-BFD9-3C27D6A3E6DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C9D09BE-796D-4D2E-BFD9-3C27D6A3E6DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C9D09BE-796D-4D2E-BFD9-3C27D6A3E6DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
