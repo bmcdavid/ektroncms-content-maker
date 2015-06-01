@@ -17,20 +17,20 @@
 
         public ContentType()
         {
-            _Initialize(string.Empty);
+            Initialize(string.Empty);
         }
 
         public ContentType(IContent c, string xml) : base(c)
         {
-            _Initialize(xml);
+            Initialize(xml);
         }
 
         protected ContentType(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            _Initialize(string.Empty);
+            Initialize(string.Empty);
         }
 
-        private void _Initialize(string xml = "")
+        protected virtual void Initialize(string xml = "")
         {
             if (string.IsNullOrEmpty(xml))
             {
