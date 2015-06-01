@@ -29,3 +29,10 @@ WSOL.EktronCms.ContentMaker
 
 ## Code Samples
 Usage examples can be found in the WSOL.EktronCms.ContentMaker.Samples project source code.
+
+* [Content Type created by the XSD utility](https://github.com/bmcdavid/ektroncms-content-maker/blob/master/WSOL.EktronCms.ContentMaker.Samples/WSOL/Custom/ContentMaker/Samples/ContentTypes/ArticleContent.designer.cs)
+* [Content Model](https://github.com/bmcdavid/ektroncms-content-maker/blob/master/WSOL.EktronCms.ContentMaker.Samples/WSOL/Custom/ContentMaker/Samples/Models/ArticleContent.cs)
+* [Content Views](https://github.com/bmcdavid/ektroncms-content-maker/tree/master/WSOL.EktronCms.ContentMaker.Samples/Views/ArticleContent)
+* [Content Renderer Web Control](https://github.com/bmcdavid/ektroncms-content-maker/blob/master/WSOL.EktronCms.ContentMaker.Samples/ContentRenderSamples.aspx)
+* [Content Renderer Code Behind](https://github.com/bmcdavid/ektroncms-content-maker/blob/master/WSOL.EktronCms.ContentMaker.Samples/ContentRenderSamples.aspx.cs)
+* [C# Code Extension Usage](https://github.com/bmcdavid/ektroncms-content-maker/blob/master/WSOL.EktronCms.ContentMaker.Samples/CodeSamples.cs)
