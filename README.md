@@ -36,3 +36,8 @@ Usage examples can be found in the WSOL.EktronCms.ContentMaker.Samples project s
 * [Content Renderer Web Control](https://github.com/bmcdavid/ektroncms-content-maker/blob/master/WSOL.EktronCms.ContentMaker.Samples/ContentRenderSamples.aspx)
 * [Content Renderer Code Behind](https://github.com/bmcdavid/ektroncms-content-maker/blob/master/WSOL.EktronCms.ContentMaker.Samples/ContentRenderSamples.aspx.cs)
 * [C# Code Extension Usage](https://github.com/bmcdavid/ektroncms-content-maker/blob/master/WSOL.EktronCms.ContentMaker.Samples/CodeSamples.cs)
+
+## Important Information
+
+* Views for models are found on web site startup, if any changes are made to TemplateDescriptor attributes for views, the web site will need to be restarted, and the quickest approach is to add a white space at the end of the web.config file in the web site root (this only impacts sites running as web sites and not web apps).
+* Views currently support web forms only and not MVC.
