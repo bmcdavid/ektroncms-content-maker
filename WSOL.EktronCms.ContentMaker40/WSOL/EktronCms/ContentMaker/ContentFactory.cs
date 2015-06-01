@@ -99,7 +99,7 @@
                 MetaData = UnMakeMetaData(Item).ToArray()
             };
 
-            if (c.MetaData != null && c.MetaData.Length == 0) // stupid, stupid ektron
+            if (c.MetaData != null && c.MetaData.Length == 0) 
                 c.MetaData = null;
 
             return c;
