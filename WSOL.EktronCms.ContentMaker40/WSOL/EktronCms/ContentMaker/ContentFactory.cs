@@ -5,6 +5,7 @@
     using System.Linq;
     using WSOL.EktronCms.ContentMaker.Attributes;
     using WSOL.EktronCms.ContentMaker.Enums;
+    using WSOL.EktronCms.ContentMaker.Extensions;
     using WSOL.EktronCms.ContentMaker.Interfaces;
     using WSOL.EktronCms.ContentMaker.Models;
     using WSOL.IocContainer;
@@ -93,6 +94,8 @@
                 GoLiveDate = Item.StartDate as DateTime?,
                 ExpireDate = Item.EndDate,
                 XmlConfiguration = new Ektron.Cms.XmlConfigData() { Id = Item.XmlConfigId },
+                Status = Item.Status != ContentStatus.Archived && Item.Status != ContentStatus.Empty ? Item.Status.GetStringValue() : "A",
+                EndDateActionType = Item.ArchiveAction == ArchiveAction.Remove ? Ektron.Cms.Common.EkEnumeration.CMSEndDateAction.Archive_Expire : Ektron.Cms.Common.EkEnumeration.CMSEndDateAction.Archive_Display, 
                 LanguageId = Item.LanguageId,
                 ContType = Item.ContentType.ToInt32(),
                 SubType = Item.ContentSubType.ToInt32().ToEnum<Ektron.Cms.Common.EkEnumeration.CMSContentSubtype>(Ektron.Cms.Common.EkEnumeration.CMSContentSubtype.Content),

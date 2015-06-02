@@ -238,7 +238,7 @@
                             }
                         }
 
-                        #region FullView Check
+                        #region Default Check
 
                         if (descriptor == null)
                         {

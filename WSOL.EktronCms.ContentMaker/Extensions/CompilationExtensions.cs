@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
+    using System.Reflection;
     using System.Web;
     using WSOL.EktronCms.ContentMaker.Attributes;
     using WSOL.EktronCms.ContentMaker.Interfaces;
@@ -262,6 +263,26 @@
             }
 
             return _TypedContentDictionary;
+        }
+
+        /// <summary>
+        /// Returns string value for enum field
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string GetStringValue(this Enum value)
+        {
+            string output = string.Empty;
+            Type type = value.GetType();
+            FieldInfo fi = type.GetField(value.ToString());
+            StringAttribute[] attrs = fi.GetCustomAttributes(typeof(StringAttribute), false) as StringAttribute[];
+
+            if (attrs != null && attrs.Length > 0)
+            {
+                output = attrs[0].Value;
+            }
+
+            return output;
         }
     }
 }

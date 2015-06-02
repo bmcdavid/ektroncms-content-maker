@@ -287,7 +287,7 @@
 
         public static IEnumerable<T> FilterType<T>(this IEnumerable<IContent> items) where T : IContent
         {
-            if (items == null) return null;
+            if (items == null) return Enumerable.Empty<T>();
 
             return items.OfType<T>();
         }

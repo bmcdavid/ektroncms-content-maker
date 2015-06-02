@@ -8,9 +8,13 @@
     using WSOL.EktronCms.ContentMaker.Models;
     using WSOL.IocContainer; // contains many extensions like ToRichString(), FromRichString(), FromWrapCDATA(), ToCDATA()
 
+    /// <summary>
+    /// <![CDATA[All smart form models need to derive from the abstract class WSOL.EktronCms.ContentMaker.Models.ContentType<T> where T is an XSD class.
+    /// They also need a [ContentDesciptor(XmlConfigId = ConfigIDValue)] attribute.
+    /// ]]>
+    /// </summary>
     [Serializable]
-    // xmlconfig ID must be set to ID of smart form config in Ektron
-    [ContentDescriptor(XmlConfigId = -100, Description = "Article Example")]
+    [ContentDescriptor(XmlConfigId = -100, Description = "Article Example")]    
     public class ArticleContent : ContentType<ContentTypes.Article.root>
     {
         #region Constructors
@@ -21,48 +25,13 @@
         public ArticleContent() { }
 
         /// <summary>
-        /// All smart form models need a constructor with this signature, and derive from ContentType&lt;T&gt; where T is XSD class
+        /// All smart form models need a constructor with this signature to allow the base SmartFormData property to have the correct data type.
         /// </summary>
         /// <param name="c"></param>
         /// <param name="xml"></param>
         public ArticleContent(IContent c, string xml) : base(c, xml) { }
 
-        #endregion Constructors
-
-        #region Serialization Helpers
-
-        /// <summary>
-        /// Used to serialize values
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-
-            info.AddValue("Link", Link, typeof(HtmlHyperlink));
-            info.AddValue("Heading", Heading, typeof(string));
-            info.AddValue("Date", Date, typeof(DateTime));
-            info.AddValue("Body", Body.ToCDATA(), typeof(string));
-
-        }
-
-        /// <summary>
-        /// Used to deserialize into instance
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
-        protected ArticleContent(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-
-            Link = (HtmlHyperlink)info.GetValue("Link", typeof(HtmlHyperlink));
-            Heading = (string)info.GetValue("Heading", typeof(string));
-            Date = info.GetValue("Date", typeof(object)).FromSerializedDateTime();
-            Body = ((string)info.GetValue("Body", typeof(string))).FromWrapCDATA();
-        }
-
-        #endregion Serialization Helpers
+        #endregion Constructors        
 
         #region Properties
 
@@ -233,7 +202,7 @@
         }
         #endregion Properties
 
-        #region Makers and UnMakers
+        #region (Optional) Makers and UnMakers
 
         private ArticleCallout MakeCallout(ContentTypes.Article.rootCallout callout)
         {
@@ -292,6 +261,40 @@
 
         #endregion
 
+        #region (Optional) Serialization Helpers
+
+        /// <summary>
+        /// Used to serialize values
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+
+            info.AddValue("Link", Link, typeof(HtmlHyperlink));
+            info.AddValue("Heading", Heading, typeof(string));
+            info.AddValue("Date", Date, typeof(DateTime));
+            info.AddValue("Body", Body.ToCDATA(), typeof(string));
+
+        }
+
+        /// <summary>
+        /// Used to deserialize into instance
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        protected ArticleContent(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+
+            Link = (HtmlHyperlink)info.GetValue("Link", typeof(HtmlHyperlink));
+            Heading = (string)info.GetValue("Heading", typeof(string));
+            Date = info.GetValue("Date", typeof(object)).FromSerializedDateTime();
+            Body = ((string)info.GetValue("Body", typeof(string))).FromWrapCDATA();
+        }
+
+        #endregion Serialization Helpers
     }
 
     /// <summary>
