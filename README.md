@@ -41,3 +41,4 @@ Usage examples can be found in the WSOL.EktronCms.ContentMaker.Samples project s
 
 * Views for models are found on web site startup, if any changes are made to TemplateDescriptor attributes for views, the web site will need to be restarted, and the quickest approach is to add a white space at the end of the web.config file in the web site root (this only impacts sites running as web sites and not web apps).
 * Views currently support web forms only and not MVC.
+* Supports Ektron CMS versions 8.7 and up. 8.02 support is possible, but the WSOL.EktronCms.ContentMaker35 project needs built out to create factories and extensions similar to WSOL.EktronCms.ContentMaker40.
