@@ -1,0 +1,110 @@
+﻿<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="FirstName" type="xs:string" />
+        <xs:element name="LastName" type="xs:string" />
+        <xs:element name="Description" type="xs:string" />
+        <xs:element name="Image">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="img" type="imgDesignType" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BlogPostsFolder" type="FolderIdRefType" />
+        <xs:element name="Bio" type="rich" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="coreattrs">
+    <xs:attribute name="id" type="xs:ID" />
+    <xs:attribute name="class" type="xs:NMTOKENS" />
+    <xs:attribute name="style" type="xs:string" />
+    <xs:attribute name="title" type="xs:string" />
+  </xs:attributeGroup>
+  <xs:attributeGroup name="i18n">
+    <xs:attribute name="lang" type="xs:language" />
+    <xs:attribute name="dir">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="ltr" />
+          <xs:enumeration value="rtl" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="attrs">
+    <xs:attributeGroup ref="coreattrs" />
+    <xs:attributeGroup ref="i18n" />
+  </xs:attributeGroup>
+  <xs:simpleType name="ImgAlign">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="top" />
+      <xs:enumeration value="middle" />
+      <xs:enumeration value="bottom" />
+      <xs:enumeration value="left" />
+      <xs:enumeration value="right" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Length">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[-+]?(\d+|\d+(\.\d+)?%)" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="imgDesignType">
+    <xs:attributeGroup ref="attrs" />
+    <xs:attribute name="src" use="required" type="xs:anyURI" />
+    <xs:attribute name="alt" type="xs:string" />
+    <xs:attribute name="height" type="Length" />
+    <xs:attribute name="width" type="Length" />
+    <xs:attribute name="align" type="ImgAlign" />
+    <xs:attribute name="border" type="Length" />
+    <xs:attribute name="hspace" type="xs:nonNegativeInteger" />
+    <xs:attribute name="vspace" type="xs:nonNegativeInteger" />
+  </xs:complexType>
+  <xs:complexType name="rich" mixed="true">
+    <xs:sequence>
+      <xs:any namespace="##any" processContents="skip" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="idtypeType">
+    <xs:restriction base="xs:NMTOKEN">
+      <xs:pattern value="[a-z]+(:[\w\d\.\-]+)*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="IdRefType">
+    <xs:simpleContent>
+      <xs:extension base="xs:long">
+        <xs:attribute name="datavalue_idtype" use="required" type="idtypeType" />
+        <xs:attribute name="datavalue_displayvalue" type="xs:string" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ContentIdRefType">
+    <xs:simpleContent>
+      <xs:restriction base="IdRefType">
+        <xs:attribute name="datavalue_idtype" use="required">
+          <xs:simpleType>
+            <xs:restriction base="idtypeType">
+              <xs:pattern value="content(:[\w\d\.\-]+)*" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:restriction>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="FolderIdRefType">
+    <xs:simpleContent>
+      <xs:restriction base="IdRefType">
+        <xs:attribute name="datavalue_idtype" use="required">
+          <xs:simpleType>
+            <xs:restriction base="idtypeType">
+              <xs:pattern value="folder(:[\w\d\.\-]+)*" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:restriction>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

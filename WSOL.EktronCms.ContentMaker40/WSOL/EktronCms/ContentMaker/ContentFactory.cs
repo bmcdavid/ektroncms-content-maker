@@ -14,15 +14,6 @@
     {
         #region Static Methods
 
-        public static IEnumerable<IContent> MakeList(IEnumerable<Ektron.Cms.ContentData> Items)
-        {
-            if (Items == null)
-                yield break;
-
-            foreach (var item in Items)
-                yield return MakeItem(item);
-        }
-
         public static IContent MakeItem(Ektron.Cms.ContentData Item)
         {
             if (Item == null)
@@ -56,8 +47,8 @@
             {
                 var types = Extensions.CompilationExtensions.GetContentDescriptors();
                 var matched = types.Where(x => x.Value.XmlConfigId == c.XmlConfigId).FirstOrDefault();
-                
-                if (!matched.Equals(default(KeyValuePair<Type,ContentDescriptorAttribute>)))
+
+                if (!matched.Equals(default(KeyValuePair<Type, ContentDescriptorAttribute>)))
                 {
                     return matched.Key.NewInstance<IContent>(c, c.Html);
                     //return (IContent)matched.First().Value.ContentMaker(c, c.Html);
@@ -68,13 +59,13 @@
             return c;
         }
 
-        public static IEnumerable<Ektron.Cms.ContentData> UnMakeList(IEnumerable<IContent> Items)
+        public static IEnumerable<IContent> MakeList(IEnumerable<Ektron.Cms.ContentData> Items)
         {
             if (Items == null)
                 yield break;
 
             foreach (var item in Items)
-                yield return UnMakeItem(item);
+                yield return MakeItem(item);
         }
 
         public static Ektron.Cms.ContentData UnMakeItem(IContent Item)
@@ -95,50 +86,26 @@
                 ExpireDate = Item.EndDate,
                 XmlConfiguration = new Ektron.Cms.XmlConfigData() { Id = Item.XmlConfigId },
                 Status = Item.Status != ContentStatus.Archived && Item.Status != ContentStatus.Empty ? Item.Status.GetStringValue() : "A",
-                EndDateActionType = Item.ArchiveAction == ArchiveAction.Remove ? Ektron.Cms.Common.EkEnumeration.CMSEndDateAction.Archive_Expire : Ektron.Cms.Common.EkEnumeration.CMSEndDateAction.Archive_Display, 
+                EndDateActionType = Item.ArchiveAction == ArchiveAction.Remove ? Ektron.Cms.Common.EkEnumeration.CMSEndDateAction.Archive_Expire : Ektron.Cms.Common.EkEnumeration.CMSEndDateAction.Archive_Display,
                 LanguageId = Item.LanguageId,
                 ContType = Item.ContentType.ToInt32(),
                 SubType = Item.ContentSubType.ToInt32().ToEnum<Ektron.Cms.Common.EkEnumeration.CMSContentSubtype>(Ektron.Cms.Common.EkEnumeration.CMSContentSubtype.Content),
                 MetaData = UnMakeMetaData(Item).ToArray()
             };
 
-            if (c.MetaData != null && c.MetaData.Length == 0) 
+            if (c.MetaData != null && c.MetaData.Length == 0)
                 c.MetaData = null;
 
             return c;
         }
 
-        private static IEnumerable<MetaData> MakeMetaData(Ektron.Cms.ContentData item)
+        public static IEnumerable<Ektron.Cms.ContentData> UnMakeList(IEnumerable<IContent> Items)
         {
-            if (item == null || item.MetaData == null)
+            if (Items == null)
                 yield break;
 
-            foreach (var i in item.MetaData)//.Where(x => !String.IsNullOrEmpty(x.Text)))
-                yield return new MetaData()
-                {
-                    Id = i.Id,
-                    LanguageId = i.Language,
-                    Name = i.Name,
-                    Value = i.Text,
-                    Type = i.Type.ToInt32().ToEnum<Enums.ContentMetaDataType>(Enums.ContentMetaDataType.NotSet),
-                    DataType = i.DataType.ToInt32().ToEnum<Enums.ContentMetadataDataType>(ContentMetadataDataType.Text)
-                };
-        }
-
-        private static IEnumerable<Ektron.Cms.ContentMetaData> UnMakeMetaData(IContent item)
-        {
-            if (item == null || item.MetaData == null)
-                yield break;
-
-            foreach (var i in item.MetaData)
-                yield return new Ektron.Cms.ContentMetaData()
-                {
-                    Id = i.Id,
-                    Language = i.LanguageId,
-                    Text = i.Value,
-                    Name = i.Name,
-                    Type = i.Type.ToInt32().ToEnum<Ektron.Cms.Common.EkEnumeration.ContentMetadataType>(Ektron.Cms.Common.EkEnumeration.ContentMetadataType.SearchableProperty)
-                };
+            foreach (var item in Items)
+                yield return UnMakeItem(item);
         }
 
         private static ContentStatus ConvertContentStatus(Ektron.Cms.ContentData content)
@@ -178,28 +145,60 @@
             return ContentStatus.Empty;
         }
 
+        private static IEnumerable<MetaData> MakeMetaData(Ektron.Cms.ContentData item)
+        {
+            if (item == null || item.MetaData == null)
+                yield break;
+
+            foreach (var i in item.MetaData)//.Where(x => !String.IsNullOrEmpty(x.Text)))
+                yield return new MetaData()
+                {
+                    Id = i.Id,
+                    LanguageId = i.Language,
+                    Name = i.Name,
+                    Value = i.Text,
+                    Type = i.Type.ToInt32().ToEnum<Enums.ContentMetaDataType>(Enums.ContentMetaDataType.NotSet),
+                    DataType = i.DataType.ToInt32().ToEnum<Enums.ContentMetadataDataType>(ContentMetadataDataType.Text)
+                };
+        }
+
+        private static IEnumerable<Ektron.Cms.ContentMetaData> UnMakeMetaData(IContent item)
+        {
+            if (item == null || item.MetaData == null)
+                yield break;
+
+            foreach (var i in item.MetaData)
+                yield return new Ektron.Cms.ContentMetaData()
+                {
+                    Id = i.Id,
+                    Language = i.LanguageId,
+                    Text = i.Value,
+                    Name = i.Name,
+                    Type = i.Type.ToInt32().ToEnum<Ektron.Cms.Common.EkEnumeration.ContentMetadataType>(Ektron.Cms.Common.EkEnumeration.ContentMetadataType.SearchableProperty)
+                };
+        }
         #endregion
 
         #region Excplicit Interface Implementations
-
-        IEnumerable<IContent> IContentFactory<Ektron.Cms.ContentData>.MakeList(IEnumerable<Ektron.Cms.ContentData> Items)
-        {
-            return MakeList(Items);
-        }
 
         IContent IContentFactory<Ektron.Cms.ContentData>.MakeItem(Ektron.Cms.ContentData Item)
         {
             return MakeItem(Item);
         }
 
-        IEnumerable<Ektron.Cms.ContentData> IContentFactory<Ektron.Cms.ContentData>.UnMakeList(IEnumerable<IContent> Items)
+        IEnumerable<IContent> IContentFactory<Ektron.Cms.ContentData>.MakeList(IEnumerable<Ektron.Cms.ContentData> Items)
         {
-            return UnMakeList(Items);
+            return MakeList(Items);
         }
 
         Ektron.Cms.ContentData IContentFactory<Ektron.Cms.ContentData>.UnMakeItem(IContent Item)
         {
             return UnMakeItem(Item);
+        }
+
+        IEnumerable<Ektron.Cms.ContentData> IContentFactory<Ektron.Cms.ContentData>.UnMakeList(IEnumerable<IContent> Items)
+        {
+            return UnMakeList(Items);
         }
 
         #endregion

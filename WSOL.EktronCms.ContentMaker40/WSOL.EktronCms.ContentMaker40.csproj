@@ -211,6 +211,10 @@
       <HintPath>..\packages\WSOL.IocContainer.2.5.0\lib\net35\WSOL.IocContainer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="WSOL.ObjectRenderer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WSOL.ObjectRenderer.0.1.0\lib\net35\WSOL.ObjectRenderer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="WSOL\Custom\ContentMaker\DependencyResolver.cs" />

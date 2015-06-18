@@ -4,9 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using WSOL.Custom.ContentMaker.Samples.Models;
-    using WSOL.EktronCms.ContentMaker.Attributes;
     using WSOL.EktronCms.ContentMaker.Samples.Helpers;
-    using WSOL.EktronCms.ContentMaker.WebControls;
+    using WSOL.ObjectRenderer.Attributes;
+    using WSOL.ObjectRenderer.WebControls;
 
     [TemplateDescriptor(Path = "~/Views/SectionContent/Default.ascx", Default = true, RequireTags = false)]
     public partial class Default : ControlBase<WSOL.Custom.ContentMaker.Samples.Models.SectionContent>

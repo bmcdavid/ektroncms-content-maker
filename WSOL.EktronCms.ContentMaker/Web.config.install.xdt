@@ -4,9 +4,6 @@
     <add key="WSOL.EktronCms.ContentMaker.Username" value="" xdt:Transform="InsertIfMissing" xdt:Locator="Match(key)"/>
     <add key="WSOL.EktronCms.ContentMaker.Password" value="" xdt:Transform="InsertIfMissing" xdt:Locator="Match(key)"/>
     <add key="WSOL.EktronCms.ContentMaker.Domain" value="" xdt:Transform="InsertIfMissing" xdt:Locator="Match(key)"/>
-    <add key="WSOL.EktronCms.ContentMaker.Compiled" value="false" xdt:Transform="InsertIfMissing" xdt:Locator="Match(key)"/>
-    <add key="WSOL.EktronCms.ContentMaker.EnableFileWatcher" value="false" xdt:Transform="InsertIfMissing" xdt:Locator="Match(key)"/>
-    <add key="WSOL.EktronCms.ContentMaker.ViewsPath" value="~/Views" xdt:Transform="InsertIfMissing" xdt:Locator="Match(key)"/>
     <add key="WSOL.EktronCms.ContentMaker.EnableErrorPageModule" value="false" xdt:Transform="InsertIfMissing" xdt:Locator="Match(key)"/>
   </appSettings>
   <system.web xdt:Transform="InsertIfMissing">

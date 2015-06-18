@@ -28,7 +28,7 @@ namespace WSOL.EktronCms.ContentMaker.Samples {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::WSOL.EktronCms.ContentMaker.WebControls.Renderer wRendererForDynamicItem;
+        protected global::WSOL.ObjectRenderer.WebControls.ObjectRenderer wRendererForDynamicItem;
         
         /// <summary>
         /// wRendererForArticles control.
@@ -37,7 +37,7 @@ namespace WSOL.EktronCms.ContentMaker.Samples {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::WSOL.EktronCms.ContentMaker.WebControls.Renderer wRendererForArticles;
+        protected global::WSOL.ObjectRenderer.WebControls.ObjectRenderer wRendererForArticles;
         
         /// <summary>
         /// wRendererForMixed control.
@@ -46,6 +46,6 @@ namespace WSOL.EktronCms.ContentMaker.Samples {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::WSOL.EktronCms.ContentMaker.WebControls.Renderer wRendererForMixed;
+        protected global::WSOL.ObjectRenderer.WebControls.ObjectRenderer wRendererForMixed;
     }
 }

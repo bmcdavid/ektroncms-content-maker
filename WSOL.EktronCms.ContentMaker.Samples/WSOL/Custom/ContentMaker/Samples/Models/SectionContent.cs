@@ -22,13 +22,13 @@
 
         public SectionContent()
         {
-            
+            CurrentLanguage = this.GetLanguageId();   
         }
 
         public SectionContent(IContent c, string xml)
             : base(c, xml)
         {
-            
+            CurrentLanguage = this.GetLanguageId();
         }
 
         #endregion Constructors

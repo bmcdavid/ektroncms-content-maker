@@ -10,9 +10,9 @@
 
     public class ErrorPageModule : IApplicationModule
     {
-        static IErrorPageModuleSetup _ErrorPageHelper;
-        static IApplicationHelper _ApplicationHelper;
-        static CustomErrorsSection _CustomErrorsSection = _ApplicationHelper.GetWebConfigSection("system.web/customErrors") as CustomErrorsSection;        
+        private static IErrorPageModuleSetup _ErrorPageHelper;
+        private static IApplicationHelper _ApplicationHelper;
+        private static CustomErrorsSection _CustomErrorsSection;// = _ApplicationHelper.GetWebConfigSection("system.web/customErrors") as CustomErrorsSection;
 
         public void Dispose()
         {
@@ -25,6 +25,7 @@
             {
                 _ErrorPageHelper = InitializationContext.Locator.Get<IErrorPageModuleSetup>();
                 _ApplicationHelper = InitializationContext.Locator.Get<IApplicationHelper>();
+                _CustomErrorsSection = _ApplicationHelper.GetWebConfigSection("system.web/customErrors") as CustomErrorsSection;
 
                 if (_ErrorPageHelper != null && _ErrorPageHelper.EnableModule)
                 {
@@ -37,7 +38,7 @@
             }
         }
 
-        static void context_AuthorizeRequest(HttpApplication application)
+        private static void context_AuthorizeRequest(HttpApplication application)
         {
             if (application.Context.Request["SCRIPT_NAME"] == "/")
                 return;

@@ -257,17 +257,43 @@
       <HintPath>..\packages\WSOL.IocContainer.2.5.0\lib\net35\WSOL.IocContainer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="WSOL.ObjectRenderer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WSOL.ObjectRenderer.0.1.0\lib\net35\WSOL.ObjectRenderer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentRenderSamples.aspx.designer.cs">
+      <DependentUpon>ContentRenderSamples.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MixedItemList.aspx.cs">
+      <DependentUpon>MixedItemList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="CodeSamples.cs" />
     <Compile Include="ContentRenderSamples.aspx.cs">
       <DependentUpon>ContentRenderSamples.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ContentRenderSamples.aspx.designer.cs">
-      <DependentUpon>ContentRenderSamples.aspx</DependentUpon>
+    <Compile Include="DynamicContentTemplate.aspx.cs">
+      <DependentUpon>DynamicContentTemplate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="DynamicContentTemplate.aspx.designer.cs">
+      <DependentUpon>DynamicContentTemplate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EktronXmlSerializer.cs" />
     <Compile Include="Helpers\FractionHelpers.cs" />
+    <Compile Include="MixedItemList.aspx.designer.cs">
+      <DependentUpon>MixedItemList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AccordionsOrTabs\AccordionItemView.ascx.cs">
+      <DependentUpon>AccordionItemView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AccordionsOrTabs\AccordionItemView.ascx.designer.cs">
+      <DependentUpon>AccordionItemView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Views\AccordionsOrTabs\Default.ascx.designer.cs">
       <DependentUpon>Default.ascx</DependentUpon>
     </Compile>
@@ -276,6 +302,27 @@
     </Compile>
     <Compile Include="Views\ArticleContent\ListView.ascx.designer.cs">
       <DependentUpon>ListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BlogAuthor\AuthorCallout.ascx.cs">
+      <DependentUpon>AuthorCallout.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\BlogAuthor\AuthorCallout.ascx.designer.cs">
+      <DependentUpon>AuthorCallout.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BlogAuthor\Default.ascx.cs">
+      <DependentUpon>Default.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\BlogAuthor\Default.ascx.designer.cs">
+      <DependentUpon>Default.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BlogPost\Default.ascx.cs">
+      <DependentUpon>Default.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\BlogPost\Default.ascx.designer.cs">
+      <DependentUpon>Default.ascx</DependentUpon>
     </Compile>
     <Compile Include="Views\CalendarEventContent\Default.ascx.designer.cs">
       <DependentUpon>Default.ascx</DependentUpon>
@@ -296,24 +343,52 @@
       <DependentUpon>Default.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Views\NewsRelease\Default.ascx.cs">
+      <DependentUpon>Default.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\NewsRelease\Default.ascx.designer.cs">
+      <DependentUpon>Default.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Views\SectionContent\Default.ascx.cs">
       <DependentUpon>Default.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\SummaryBase\ListView.ascx.cs">
+      <DependentUpon>ListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\SummaryBase\ListView.ascx.designer.cs">
+      <DependentUpon>ListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WSOL\Custom\ContentMaker\Samples\ContentTypes\BlogAuthor.designer.cs" />
+    <Compile Include="WSOL\Custom\ContentMaker\Samples\ContentTypes\BlogPost.designer.cs" />
+    <Compile Include="WSOL\Custom\ContentMaker\Samples\ContentTypes\NewsRelease.designer.cs" />
     <Compile Include="WSOL\Custom\ContentMaker\Samples\CustomSiteSetup.cs" />
+    <Compile Include="WSOL\Custom\ContentMaker\Samples\Models\BlogAuthor.cs" />
+    <Compile Include="WSOL\Custom\ContentMaker\Samples\Models\BlogPost.cs" />
+    <Compile Include="WSOL\Custom\ContentMaker\Samples\Models\NewsRelease.cs" />
     <Compile Include="WSOL\Custom\ContentMaker\Samples\Models\SiteSettingsContent.cs" />
+    <Compile Include="WSOL\Custom\ContentMaker\Samples\Models\SummaryBase.cs" />
     <Compile Include="WSOL\Custom\ContentMaker\Samples\Resolvers\SiteSettingsResolver.cs" />
     <Compile Include="WSOL\Custom\ContentMaker\Samples\ContentTypes\SiteSettings.designer.cs" />
     <Compile Include="WSOL\Custom\ContentMaker\Samples\ContentTypes\FolderSettings.designer.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="MixedItemList.aspx" />
     <Content Include="ContentRenderSamples.aspx" />
+    <Content Include="DynamicContentTemplate.aspx" />
+    <Content Include="Views\AccordionsOrTabs\AccordionItemView.ascx" />
     <Content Include="Views\ArticleContent\Default.ascx" />
     <Content Include="Views\ArticleContent\ListView.ascx" />
+    <Content Include="Views\BlogAuthor\AuthorCallout.ascx" />
+    <Content Include="Views\BlogAuthor\Default.ascx" />
+    <Content Include="Views\BlogPost\Default.ascx" />
     <Content Include="Views\CalendarEventContent\Default.ascx" />
     <Content Include="Views\AccordionsOrTabs\Default.ascx" />
+    <Content Include="Views\NewsRelease\Default.ascx" />
     <Content Include="Views\SectionContent\Default.ascx" />
     <Compile Include="Views\SectionContent\Default.ascx.designer.cs">
       <DependentUpon>Default.ascx</DependentUpon>
@@ -330,10 +405,14 @@
     <Compile Include="WSOL\Custom\ContentMaker\Samples\Models\LangaugeGlossaryContent.cs" />
     <Compile Include="WSOL\Custom\ContentMaker\Samples\ContentTypes\LanguageGlossary.designer.cs" />
     <Compile Include="WSOL\Custom\ContentMaker\Samples\Models\SectionContent.cs" />
+    <Content Include="Views\SummaryBase\ListView.ascx" />
     <Content Include="XmlSource\ArticleContent.xml" />
     <Content Include="XmlSource\AccordionsOrTabs.xml" />
+    <Content Include="XmlSource\BlogAuthor.xml" />
+    <Content Include="XmlSource\BlogPost.xml" />
     <Content Include="XmlSource\FolderSettings.xml" />
     <Content Include="XmlSource\LanguageGlossary.xml" />
+    <Content Include="XmlSource\NewsRelease.xml" />
     <Content Include="XmlSource\SectionContent.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -350,10 +429,19 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="WSOL.IoCContainer.InitializationModule.config" />
+    <None Include="XSD\BlogAuthor.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XSD\BlogPost.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="XSD\FolderSettings.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="XSD\LanguageGlossary.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XSD\NewsRelease.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="XSD\SiteSettings.xsd">

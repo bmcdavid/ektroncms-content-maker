@@ -57,25 +57,24 @@
       <HintPath>..\packages\WSOL.IocContainer.2.5.0\lib\net35\WSOL.IocContainer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="WSOL.ObjectRenderer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WSOL.ObjectRenderer.0.1.0\lib\net35\WSOL.ObjectRenderer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\ContentDescriptorAttribute.cs" />
-    <Compile Include="Attributes\TemplateDescriptorAttribute.cs" />
     <Compile Include="Attributes\StringAttribute.cs" />
+    <Compile Include="Attributes\TemplateDescriptorAttribute.cs" />
     <Compile Include="DebugInformation.cs" />
-    <Compile Include="Delegates\TemplateDescriptor.cs" />
     <Compile Include="Enums\Content.cs" />
     <Compile Include="Enums\Language.cs" />
     <Compile Include="Enums\Navigation.cs" />
-    <Compile Include="Enums\Templates.cs" />
     <Compile Include="Extensions\CompilationExtensions.cs" />
-    <Compile Include="Extensions\TemplateExtensions.cs" />
     <Compile Include="Extensions\MetaDataExtensions.cs" />
     <Compile Include="Extensions\XmlExtensions.cs" />
     <Compile Include="HttpModules\ErrorPageModule.cs" />
-    <Compile Include="HttpModules\FileWatcherModule.cs" />
     <Compile Include="Interfaces\IContent.cs" />
-    <Compile Include="Interfaces\IContentControl.cs" />
     <Compile Include="Interfaces\IContentFactory.cs" />
     <Compile Include="Interfaces\IErrorPageModuleSetup.cs" />
     <Compile Include="Interfaces\IGlossary.cs" />
@@ -95,6 +94,11 @@
     <Compile Include="Models\NavigationItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tags.cs" />
+    <Compile Include="WebControls\ControlBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebControls\Renderer.cs" />
+    <Compile Include="WebControls\TemplateBase.cs" />
     <None Include="Web.config.install.xdt" />
     <None Include="Web.config.uninstall.xdt" />
     <Compile Include="Views\HtmlContent\FullView.ascx.cs">
@@ -111,18 +115,12 @@
     <Compile Include="Views\HtmlContent\ListView.ascx.designer.cs">
       <DependentUpon>ListView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="WebControls\ControlBase.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebControls\Renderer.cs" />
-    <Compile Include="WebControls\TemplateBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="WSOL.IoCContainer.InitializationModule.config" />
-    <None Include="_PackageInfo\WSOL.EktronCms.ContentMaker\SampleContent.cs.txt" />
     <None Include="Views\HtmlContent\FullView.ascx" />
     <None Include="Views\HtmlContent\ListView.ascx" />
   </ItemGroup>
@@ -131,7 +129,6 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

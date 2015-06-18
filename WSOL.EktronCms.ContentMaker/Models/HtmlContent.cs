@@ -10,6 +10,7 @@
     using WSOL.EktronCms.ContentMaker.Attributes;
     using WSOL.EktronCms.ContentMaker.Interfaces;
     using WSOL.IocContainer;
+    using WSOL.ObjectRenderer.Interfaces;
 
     /// <summary>
     /// Base Class for which all content is derived
@@ -20,12 +21,12 @@
     [KnownType(typeof(List<WSOL.EktronCms.ContentMaker.Models.MetaData>))]
     [KnownType(typeof(WSOL.IocContainer.HtmlHyperlink))]
     [KnownType(typeof(WSOL.IocContainer.HtmlImage))]
-    [ContentDescriptor(XmlConfigId = 0, Description = "HTML Content", BackendContent = false)]
-    public class HtmlContent : IContent, ISerializable
+    [ContentDescriptor(XmlConfigId = 0, Description = "HTML Content")]
+    public class HtmlContent : IContent, ISerializable, IRendererDebugString, ICacheKey, IRendererItemDisplay
     {
         #region Constructors
 
-        // FullView
+        // Default
         public HtmlContent()
         {
             SmartFormData = null;
@@ -58,25 +59,51 @@
             XmlConfigId = content.XmlConfigId;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Properties
 
-        public virtual long Id { get; set; }
+        private string html;
 
-        public virtual int LanguageId { get; set; }
+        public virtual Enums.ArchiveAction ArchiveAction { get; set; }
+
+        /// <summary>
+        /// Sets unique info if XSLT templates are used withing the WSOL:Renderer
+        /// </summary>
+        public virtual string CacheKey
+        {
+            get { return string.Format("ID={0}:L={1}", Id, LanguageId); }
+        }
+
+        public virtual Enums.ContentSubtype ContentSubType { get; set; }
+
+        public virtual Enums.ContentType ContentType { get; set; }
+
+        public virtual DateTime DateCreated { get; set; }
+
+        public virtual DateTime DateModified { get; set; }
+
+        /// <summary>
+        /// Adds object specific information for the renderer debug display
+        /// </summary>
+        public virtual string DebugText
+        {
+            get
+            {
+                return string.Format("ID: {0}, Name: {1}, XmlID: {2}, ",
+                          this.Id,
+                          this.Title,
+                          this.XmlConfigId
+                      );
+            }
+        }
+
+        public virtual string Description { get; set; }
+
+        public virtual DateTime EndDate { get; set; }
 
         public virtual long FolderId { get; set; }
 
-        public long UserId { get; set; }
-
-        public virtual long XmlConfigId { get; set; }
-
-        public virtual string Title { get; set; }
-
-        public virtual string Url { get; set; }
-
-        private string html;
         public virtual string Html
         {
             get
@@ -92,33 +119,6 @@
             }
         }
 
-        public virtual string Description { get; set; }
-
-        public virtual DateTime DateCreated { get; set; }
-
-        public virtual DateTime DateModified { get; set; }
-
-        public virtual DateTime StartDate { get; set; }
-
-        public virtual DateTime EndDate { get; set; }
-
-        public virtual bool IsPrivate { get; set; }
-
-        public virtual bool IsForm { get; set; }
-
-        [Browsable(false), XmlIgnore]
-        public virtual object SmartFormData { get; protected set; }
-
-        public virtual Enums.ContentStatus Status { get; set; }
-
-        public virtual Enums.ArchiveAction ArchiveAction { get; set; }
-
-        public Enums.ContentType ContentType { get; set; }
-
-        public Enums.ContentSubtype ContentSubType { get; set; }
-
-        public virtual List<MetaData> MetaData { get; set; }
-        
         IEnumerable<IMetaData> IContent.MetaData
         {
             get
@@ -131,39 +131,69 @@
             }
         }
 
-        #endregion
+        public virtual long Id { get; set; }
+
+        public virtual bool IsForm { get; set; }
+
+        public virtual bool IsPrivate { get; set; }
+
+        public virtual int LanguageId { get; set; }
+
+        public virtual List<MetaData> MetaData { get; set; }
+
+        [Browsable(false), XmlIgnore]
+        public virtual object SmartFormData { get; protected set; }
+
+        public virtual DateTime StartDate { get; set; }
+
+        public virtual Enums.ContentStatus Status { get; set; }
+
+        public virtual string Title { get; set; }
+
+        public virtual string Url { get; set; }
+
+        public virtual long UserId { get; set; }
+
+        public virtual long XmlConfigId { get; set; }
+
+        #endregion Properties
+
+        #region Methods
+
+        /// <summary>
+        /// Determines if item can be displayed within the WSOL:Renderer control
+        /// </summary>
+        /// <param name="templateDescriptor"></param>
+        /// <param name="Tags"></param>
+        /// <returns></returns>
+        public virtual bool DisplayItem(ObjectRenderer.Attributes.TemplateDescriptorAttribute templateDescriptor, string[] Tags)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Returns the contents html value
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return Html;
+        }
+
+        #endregion Methods
 
         #region Serialization Methods
 
-        // Serialization Info Mapper, only mapped fields get serialized
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("Id", Id, typeof(long));
-            info.AddValue("LanguageId", LanguageId, typeof(int));
-            info.AddValue("FolderId", FolderId, typeof(long));
-            info.AddValue("UserId", UserId, typeof(long));
-            info.AddValue("XmlConfigId", XmlConfigId, typeof(long));
-            info.AddValue("Title", Title, typeof(string));
-            info.AddValue("Url", Url, typeof(string));
-            info.AddValue("Html", Html.ToCDATA(), typeof(string));
-            info.AddValue("Description", Description.ToCDATA(), typeof(string));
-            info.AddValue("DateCreated", DateCreated, typeof(DateTime));
-            info.AddValue("DateModified", DateModified, typeof(DateTime));
-            info.AddValue("StartDate", StartDate, typeof(DateTime));
-            info.AddValue("EndDate", EndDate, typeof(DateTime));
-            info.AddValue("IsPrivate", IsPrivate, typeof(bool));
-            info.AddValue("IsForm", IsForm, typeof(bool));
-            info.AddValue("Status", Status, typeof(Enums.ContentStatus));
-            info.AddValue("ArchiveAction", ArchiveAction, typeof(Enums.ArchiveAction));
-            info.AddValue("MetaData", MetaData, typeof(List<MetaData>));
-        }
-
-        // Serialization Contructor
+        /// <summary>
+        /// Serialization Contructor
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         protected HtmlContent(SerializationInfo info, StreamingContext context)
         {
             Id = info.GetInt64("Id");
             LanguageId = info.GetInt32("LanguageId");
-            FolderId =  info.GetInt64("FolderId");
+            FolderId = info.GetInt64("FolderId");
             UserId = info.GetInt64("UserId");
             XmlConfigId = info.GetInt64("XmlConfigId");
             Title = info.GetString("Title");
@@ -188,9 +218,35 @@
             }
             else if (metaData is List<MetaData>)
                 MetaData = metaData as List<MetaData>;
-            
         }
 
-        #endregion
+        /// <summary>
+        /// Serialization Info Mapper, only mapped fields get serialized
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Id", Id, typeof(long));
+            info.AddValue("LanguageId", LanguageId, typeof(int));
+            info.AddValue("FolderId", FolderId, typeof(long));
+            info.AddValue("UserId", UserId, typeof(long));
+            info.AddValue("XmlConfigId", XmlConfigId, typeof(long));
+            info.AddValue("Title", Title, typeof(string));
+            info.AddValue("Url", Url, typeof(string));
+            info.AddValue("Html", Html.ToCDATA(), typeof(string));
+            info.AddValue("Description", Description.ToCDATA(), typeof(string));
+            info.AddValue("DateCreated", DateCreated, typeof(DateTime));
+            info.AddValue("DateModified", DateModified, typeof(DateTime));
+            info.AddValue("StartDate", StartDate, typeof(DateTime));
+            info.AddValue("EndDate", EndDate, typeof(DateTime));
+            info.AddValue("IsPrivate", IsPrivate, typeof(bool));
+            info.AddValue("IsForm", IsForm, typeof(bool));
+            info.AddValue("Status", Status, typeof(Enums.ContentStatus));
+            info.AddValue("ArchiveAction", ArchiveAction, typeof(Enums.ArchiveAction));
+            info.AddValue("MetaData", MetaData, typeof(List<MetaData>));
+        }
+
+        #endregion Serialization Methods
     }
 }

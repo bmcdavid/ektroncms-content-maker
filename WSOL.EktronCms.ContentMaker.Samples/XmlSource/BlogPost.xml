@@ -1,0 +1,43 @@
+﻿<table style="width: 100%;">
+  <tbody>
+    <tr>
+      <td style="width: 20%; height: 18px;">Date:</td>
+      <td>
+        &#160;<ektdesignns_calendar ektdesignns_basetype="calendar" id="Date" name="Date" ektdesignns_caption="Date" ektdesignns_name="Date" title="Date" ektdesignns_indexed="false" ektdesignns_nodetype="element" ektdesignns_default="$currentDate">
+          <input type="text" readonly="readonly" size="30" unselectable="on" />
+          <img unselectable="on" class="design_fieldbutton" src="/WorkArea/csslib/ContentDesigner/btncalendar.gif" alt="Select date" width="16" height="16" />
+        </ektdesignns_calendar>
+      </td>
+    </tr>
+    <tr>
+      <td>Description:</td>
+      <td>
+        &#160;<textarea name="Description" id="Description" ektdesignns_caption="Description" ektdesignns_name="Description" title="Description" ektdesignns_indexed="false" ektdesignns_nodetype="element" cols="24" rows="3" class="design_textfield"></textarea>
+
+        &#160;
+      </td>
+    </tr>
+    <tr>
+      <td>Image:</td>
+      <td>
+        &#160;<ektdesignns_imageonly id="Image" name="Image" ektdesignns_caption="Image" ektdesignns_name="Image" title="Image" ektdesignns_indexed="false" ektdesignns_nodetype="element" ektdesignns_content="element=img">
+          <img unselectable="on" class="design_fieldbutton" src="/WorkArea/csslib/ContentDesigner/btnimageonly.gif" alt="Select picture" width="16" height="16" />
+        </ektdesignns_imageonly>
+      </td>
+    </tr>
+    <tr>
+      <td>Author:</td>
+      <td>
+        &#160;<ektdesignns_resource id="Author" name="Author" ektdesignns_caption="Author" ektdesignns_name="Author" title="Author" ektdesignns_indexed="false" ektdesignns_nodetype="element" datavalue_idtype="content" ektdesignns_searchby="folder taxonomy words " ektdesignns_filterby="content:htmlcontent content:smartform content:htmlform content:mso content:asset content:multimedia content:product " ektdesignns_validation="content-req" onblur="design_validate_re(/^[0-9]+$/,this,'Can not be blank');">
+          <span unselectable="on"></span>&#160;<img unselectable="on" class="design_fieldbutton" src="/WorkArea/csslib/ContentDesigner/btnexplorefolder.gif" alt="Select Content" width="16" height="16" />
+        </ektdesignns_resource>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">Body:</td>
+      <td colspan="1">
+        &#160;<ektdesignns_richarea id="Body" name="Body" ektdesignns_caption="Body" ektdesignns_name="Body" title="Body" ektdesignns_indexed="false" ektdesignns_nodetype="element">&#160;</ektdesignns_richarea>
+      </td>
+    </tr>
+  </tbody>
+</table>

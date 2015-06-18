@@ -12,18 +12,99 @@
 
     public static class CompilationExtensions
     {
-        private static object _lock = new object();
-
         // Stores properties of given type for lifetime of application
         internal static SafeDictionary<Type, PropertyDescriptorCollection> _PropertyTypes;
 
         // Stores properties of given type for lifetime of application
         internal static SafeDictionary<Type, ContentDescriptorAttribute> _TypedContentDictionary;
 
+        private static object _lock = new object();
+
         /// <summary>
         /// Specific to Ektron
         /// </summary>
         private static SafeDictionary<CustomTuple<PropertyDescriptorCollection, Type, Type>, IEnumerable<PropertyDescriptor>> _TypeDecriptors;
+
+        /// <summary>
+        /// Gets a list of back end types only
+        /// </summary>
+        /// <param name="types">IEnumerable of IContent Types</param>
+        /// <returns></returns>
+        public static IEnumerable<Type> FilterForBackEndTypes(this IEnumerable<Type> types)
+        {
+            if (types == null)
+            {
+                return types;
+            }
+
+            return HttpContext.Current.GetApplicationItem<IEnumerable<Type>>
+            (
+                "WSOL:IContentTypes.BackEndOnly",
+                () =>
+                {
+                    var backendTypes = new List<Type>();
+
+                    foreach (Type type in types)
+                    {
+                        // Get instance of the attribute.
+                        ContentDescriptorAttribute attribute = Attribute.GetCustomAttribute(type,
+                            typeof(ContentDescriptorAttribute)) as ContentDescriptorAttribute;
+
+                        if (attribute != null && attribute.BackendContent)
+                        {
+                            backendTypes.Add(type);
+                        }
+                    }
+
+                    return backendTypes;
+                }
+            );
+        }
+
+        /// <summary>
+        /// Gets a listing of front end content types
+        /// </summary>
+        /// <param name="types">IEnumerable of IContent Types</param>
+        /// <returns></returns>
+        public static IEnumerable<Type> FilterForFrontEndTypes(this IEnumerable<Type> types)
+        {
+            if (types == null)
+            {
+                return types;
+            }
+
+            return types.Except(types.FilterForBackEndTypes());
+        }
+
+        /// <summary>
+        /// Gets all models with the ContentDescriptor attribute
+        /// </summary>
+        /// <returns></returns>
+        public static Dictionary<Type, ContentDescriptorAttribute> GetContentDescriptors()
+        {
+            if (_TypedContentDictionary == null)
+            {
+                lock (_lock)
+                {
+                    var types = (true).ScanForAttribute<ContentDescriptorAttribute>(false, true, true);
+                    _TypedContentDictionary = new SafeDictionary<Type, ContentDescriptorAttribute>();
+
+                    foreach (var type in types)
+                    {
+                        // Get instance of the attribute.
+                        ContentDescriptorAttribute attribute = Attribute.GetCustomAttribute(type,
+                            typeof(ContentDescriptorAttribute)) as ContentDescriptorAttribute;
+
+                        if (attribute != null)
+                        {
+                            _TypedContentDictionary.Add(type, attribute);
+                        }
+                    }
+                }
+            }
+
+            return _TypedContentDictionary;
+        }
 
         /// <summary>
         /// Gets all types utilize IContent
@@ -78,55 +159,23 @@
         }
 
         /// <summary>
-        /// Gets a list of back end types only
+        /// Gets the appropriate model for the given XmlConfigId
         /// </summary>
-        /// <param name="types">IEnumerable of IContent Types</param>
+        /// <param name="Id">Ektron XmlConfigId</param>
         /// <returns></returns>
-        public static IEnumerable<Type> FilterForBackEndTypes(this IEnumerable<Type> types)
+        public static Type GetModelType(this long Id)
         {
-            if (types == null)
+            var types = GetContentDescriptors();
+            Type type = null;
+
+            foreach (var pair in types.Where(x => x.Value.XmlConfigId == Id))
             {
-                return types;
+                type = pair.Key;
+                break;
             }
 
-            return HttpContext.Current.GetApplicationItem<IEnumerable<Type>>
-            (
-                "WSOL:IContentTypes.BackEndOnly",
-                () =>
-                {
-                    var backendTypes = new List<Type>();
-
-                    foreach (Type type in types)
-                    {
-                        // Get instance of the attribute.
-                        ContentDescriptorAttribute attribute = Attribute.GetCustomAttribute(type,
-                            typeof(ContentDescriptorAttribute)) as ContentDescriptorAttribute;
-
-                        if (attribute != null && attribute.BackendContent)
-                        {
-                            backendTypes.Add(type);
-                        }
-                    }
-
-                    return backendTypes;
-                }
-            );
+            return type;
         }
-
-        /// <summary>
-        /// Gets a listing of front end content types
-        /// </summary>
-        /// <param name="types">IEnumerable of IContent Types</param>
-        /// <returns></returns>
-        public static IEnumerable<Type> FilterForFrontEndTypes(this IEnumerable<Type> types)
-        {
-            if (types == null)
-            {
-                return types;
-            }
-
-            return types.Except(types.FilterForBackEndTypes());
-        }        
 
         /// <summary>
         /// Gets property descriptor collection for type
@@ -149,6 +198,45 @@
             }
 
             return item;
+        }
+
+        /// <summary>
+        /// Returns string value for enum field
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string GetStringValue(this Enum value)
+        {
+            string output = string.Empty;
+            Type type = value.GetType();
+            FieldInfo fi = type.GetField(value.ToString());
+            StringAttribute[] attrs = fi.GetCustomAttributes(typeof(StringAttribute), false) as StringAttribute[];
+
+            if (attrs != null && attrs.Length > 0)
+            {
+                output = attrs[0].Value;
+            }
+
+            return output;
+        }
+
+        /// <summary>
+        /// Gets the TypedContentDescriptor for given Id
+        /// </summary>
+        /// <param name="Id">Ektron XmlConfigId</param>
+        /// <returns>null if not found</returns>
+        public static ContentDescriptorAttribute GetTypeAttribute(this long Id)
+        {
+            var types = GetContentDescriptors();
+            ContentDescriptorAttribute attributeType = null;
+
+            foreach (var pair in types.Where(x => x.Value.XmlConfigId == Id))
+            {
+                attributeType = pair.Value;
+                break;
+            }
+
+            return attributeType;
         }
 
         /// <summary>
@@ -195,94 +283,6 @@
             }
 
             return attributeType.XmlConfigId;
-        }
-
-        /// <summary>
-        /// Gets the TypedContentDescriptor for given Id
-        /// </summary>
-        /// <param name="Id">Ektron XmlConfigId</param>
-        /// <returns>null if not found</returns>
-        public static ContentDescriptorAttribute GetTypeAttribute(this long Id)
-        {
-            var types = GetContentDescriptors();
-            ContentDescriptorAttribute attributeType = null;
-
-            foreach (var pair in types.Where(x => x.Value.XmlConfigId == Id))
-            {
-                attributeType = pair.Value;
-                break;
-            }
-
-            return attributeType;
-        }
-
-        /// <summary>
-        /// Gets the appropriate model for the given XmlConfigId
-        /// </summary>
-        /// <param name="Id">Ektron XmlConfigId</param>
-        /// <returns></returns>
-        public static Type GetModelType(this long Id)
-        {
-            var types = GetContentDescriptors();
-            Type type = null;
-
-            foreach (var pair in types.Where(x => x.Value.XmlConfigId == Id))
-            {
-                type = pair.Key;
-                break;
-            }
-
-            return type;
-        }
-
-        /// <summary>
-        /// Gets all models with the ContentDescriptor attribute
-        /// </summary>
-        /// <returns></returns>
-        public static Dictionary<Type, ContentDescriptorAttribute> GetContentDescriptors()
-        {
-            if (_TypedContentDictionary == null)
-            {
-                lock (_lock)
-                {
-                    var types = (true).ScanForAttribute<ContentDescriptorAttribute>(false, true, true);
-                    _TypedContentDictionary = new SafeDictionary<Type, ContentDescriptorAttribute>();
-
-                    foreach (var type in types)
-                    {
-                        // Get instance of the attribute.
-                        ContentDescriptorAttribute attribute = Attribute.GetCustomAttribute(type,
-                            typeof(ContentDescriptorAttribute)) as ContentDescriptorAttribute;
-
-                        if (attribute != null)
-                        {
-                            _TypedContentDictionary.Add(type, attribute);
-                        }
-                    }
-                }
-            }
-
-            return _TypedContentDictionary;
-        }
-
-        /// <summary>
-        /// Returns string value for enum field
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static string GetStringValue(this Enum value)
-        {
-            string output = string.Empty;
-            Type type = value.GetType();
-            FieldInfo fi = type.GetField(value.ToString());
-            StringAttribute[] attrs = fi.GetCustomAttributes(typeof(StringAttribute), false) as StringAttribute[];
-
-            if (attrs != null && attrs.Length > 0)
-            {
-                output = attrs[0].Value;
-            }
-
-            return output;
         }
     }
 }

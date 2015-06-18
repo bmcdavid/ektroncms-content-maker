@@ -1,0 +1,44 @@
+﻿<table style="width: 100%;">
+  <tbody>
+    <tr>
+      <td style="width: 20%; height: 18px;">First Name:</td>
+      <td>
+        &#160;<input type="text" name="FirstName" id="FirstName" ektdesignns_caption="FirstName" ektdesignns_name="FirstName" title="FirstName" ektdesignns_indexed="false" ektdesignns_nodetype="element" size="24" class="design_textfield" />
+      </td>
+    </tr>
+    <tr>
+      <td>Last Name:</td>
+      <td>
+        &#160;<input type="text" name="LastName" id="LastName" ektdesignns_caption="Last Name" ektdesignns_name="LastName" title="Last Name" ektdesignns_indexed="false" ektdesignns_nodetype="element" size="24" class="design_textfield" />
+      </td>
+    </tr>
+    <tr>
+      <td>Description:</td>
+      <td>
+        &#160;<textarea name="Description" id="Description" ektdesignns_caption="Description" ektdesignns_name="Description" title="Description" ektdesignns_indexed="false" ektdesignns_nodetype="element" cols="24" rows="3" class="design_textfield"></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td>Image:</td>
+      <td>
+        &#160;<ektdesignns_imageonly id="Image" name="Image" ektdesignns_caption="Image" ektdesignns_name="Image" title="Image" ektdesignns_indexed="false" ektdesignns_nodetype="element" ektdesignns_content="element=img">
+          <img unselectable="on" class="design_fieldbutton" src="/WorkArea/csslib/ContentDesigner/btnimageonly.gif" alt="Select picture" width="16" height="16" />
+        </ektdesignns_imageonly>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">Blog Posts Folder:</td>
+      <td colspan="1">
+        &#160;<ektdesignns_resource id="BlogPostsFolder" name="BlogPostsFolder" ektdesignns_caption="BlogPostsFolder" ektdesignns_name="BlogPostsFolder" title="BlogPostsFolder" ektdesignns_indexed="false" ektdesignns_nodetype="element" datavalue_idtype="folder" ektdesignns_searchby="folder " ektdesignns_appearance="teaser" ektdesignns_validation="content-req" onblur="design_validate_re(/^[0-9]+$/,this,'Can not be blank');">
+          <span unselectable="on"></span>&#160;<img unselectable="on" class="design_fieldbutton" src="/WorkArea/csslib/ContentDesigner/btnexplorefolder.gif" alt="Select Folder" width="16" height="16" />
+        </ektdesignns_resource>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">Bio:</td>
+      <td colspan="1">
+        &#160;<ektdesignns_richarea id="Bio" name="Bio" ektdesignns_caption="Bio" ektdesignns_name="Bio" title="Bio" ektdesignns_indexed="false" ektdesignns_nodetype="element">&#160;</ektdesignns_richarea>
+      </td>
+    </tr>
+  </tbody>
+</table>

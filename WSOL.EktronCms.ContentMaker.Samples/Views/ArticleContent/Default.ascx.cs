@@ -1,8 +1,8 @@
 ﻿namespace WSOL.Custom.ContentMaker.Samples.Views.ArticleContent
 {
     using System;
-    using WSOL.EktronCms.ContentMaker.Attributes;
-    using WSOL.EktronCms.ContentMaker.WebControls;
+    using WSOL.ObjectRenderer.Attributes;
+    using WSOL.ObjectRenderer.WebControls;
 
     [TemplateDescriptor(Default = true, Path = "~/Views/ArticleContent/Default.ascx")]
     public partial class Default : ControlBase<WSOL.Custom.ContentMaker.Samples.Models.ArticleContent>
