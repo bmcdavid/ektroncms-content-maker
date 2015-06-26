@@ -34,11 +34,11 @@
             if (Id <= 0)
                 return null;
 
-            ContentData Data = _CacheManager.GetItem<ContentData>(GetContentCacheKey(Id, Language));
+            var data = _CacheManager.GetItem(GetContentCacheKey(Id, Language)) as ContentData;
 
-            if (_CacheManager.EnableCache && Data != null)
+            if (_CacheManager.EnableCache && data != null)
             {
-                return Data;
+                return data;
             }
 
             return null;

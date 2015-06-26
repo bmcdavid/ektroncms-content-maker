@@ -20,6 +20,156 @@
 
         private static int CacheInterval = _CacheManager.ShortInterval;
 
+        public static IEnumerable<T> FilterType<T>(this IEnumerable<IContent> items) where T : IContent
+        {
+            if (items == null) return Enumerable.Empty<T>();
+
+            return items.OfType<T>();
+        }
+
+        public static List<TaxonomyData> GetAssignedCategories(this IContent c, EkEnumeration.TaxonomyItemType ItemType = EkEnumeration.TaxonomyItemType.Content, PagingInfo PageInfo = null)
+        {
+            if (c == null)
+            {
+                return null;
+            }
+
+            return GetAssignedCategories(c.Id, c.LanguageId, ItemType, PageInfo);
+        }
+
+        public static List<TaxonomyData> GetAssignedCategories(this long Id, int LanguageId, EkEnumeration.TaxonomyItemType ItemType = EkEnumeration.TaxonomyItemType.Content, PagingInfo PageInfo = null)
+        {
+            PagedCachedData<TaxonomyData> TaxonomyItems = null;
+
+            if (PageInfo == null)
+                PageInfo = new PagingInfo() { RecordsPerPage = 100 };
+
+            var criteria = Id.GetTaxonomyItemCriteria();
+            criteria.AddFilter(TaxonomyItemProperty.ItemType, CriteriaFilterOperator.EqualTo, ItemType);
+            criteria.AddFilter(TaxonomyItemProperty.ItemId, CriteriaFilterOperator.EqualTo, Id);
+            criteria.AddFilter(TaxonomyItemProperty.LanguageId, CriteriaFilterOperator.EqualTo, LanguageId);
+            criteria.PagingInfo = PageInfo;
+
+            TaxonomyItems = _CacheManager.CacheItem
+            (
+                criteria.GetCacheKey(true),
+                () =>
+                {
+                    var cache = new PagedCachedData<TaxonomyData>();
+
+                    var api = FrameworkFactory<Ektron.Cms.Framework.Organization.TaxonomyItemManager>.Get(true, LanguageId);
+                    var items = api.GetList(criteria);
+                    cache.NumberOfRecords = criteria.PagingInfo.TotalRecords;
+
+                    if (items != null && items.Count > 0)
+                    {
+                        var tApi = FrameworkFactory<Ektron.Cms.Framework.Organization.TaxonomyManager>.Get(true, LanguageId);
+
+                        var tCriteria = Id.GetTaxonomyCriteria();
+                        tCriteria.PagingInfo = PageInfo;
+                        tCriteria.AddFilter(TaxonomyProperty.Id, CriteriaFilterOperator.In, items.Select(x => x.TaxonomyId).ToList());
+
+                        cache.Items = tApi.GetList(tCriteria).OrderBy(x => x.Path).ToList();
+                    }
+
+                    return cache;
+
+                },
+                CacheInterval
+            );
+
+            PageInfo.TotalRecords = TaxonomyItems.NumberOfRecords;
+
+            return TaxonomyItems.Items.ToList();
+        }
+
+        public static IContent GetContent(this ContentData contentData)
+        {
+            return ContentFactory.MakeItem(contentData);
+        }
+
+        public static IContent GetContent(this long Id, int Language, bool AdminMode = false)
+        {
+            return ContentFactory.MakeItem(GetEktronContentData(Id, Language, AdminMode));
+        }
+
+        public static T GetContent<T>(this long Id, int Language, bool AdminMode = false) where T : IContent
+        {
+            return (T)ContentFactory.MakeItem(GetEktronContentData(Id, Language, AdminMode));
+        }
+
+        public static IContent GetContent(this TaxonomyItemData TaxonomyItem, bool AdminMode = false)
+        {
+            return GetContent(TaxonomyItem.ItemId, TaxonomyItem.ItemLanguageId, AdminMode);
+        }
+
+        public static T GetContent<T>(this TaxonomyItemData TaxonomyItem, bool AdminMode = false) where T : IContent
+        {
+            return GetContent<T>(TaxonomyItem.ItemId, TaxonomyItem.ItemLanguageId, AdminMode);
+        }
+
+        public static IEnumerable<IContent> GetContent(this IEnumerable<ContentData> contentList)
+        {
+            return ContentFactory.MakeList(contentList);
+        }
+
+        public static IEnumerable<T> GetContent<T>(this IEnumerable<ContentData> contentList) where T : IContent
+        {
+            return FilterType<T>(ContentFactory.MakeList(contentList));
+        }
+
+        public static IEnumerable<IContent> GetContent(this ContentCriteria criteria, bool AdminMode = false)
+        {
+            return ContentFactory.MakeList(criteria.GetEktronContentDataList(AdminMode));
+        }
+
+        public static IEnumerable<T> GetContent<T>(this ContentCriteria criteria, bool AdminMode = false) where T : IContent
+        {
+            return FilterType<T>(ContentFactory.MakeList(criteria.GetEktronContentDataList(AdminMode)));
+        }
+
+        public static IEnumerable<IContent> GetContentList(this IEnumerable<TaxonomyItemData> TaxonomyItems, bool AdminMode = false)
+        {
+            return TaxonomyItems.Select(x => x.GetContent(AdminMode));
+        }
+
+        public static IEnumerable<T> GetContentList<T>(this IEnumerable<TaxonomyItemData> TaxonomyItems, bool AdminMode = false) where T : IContent
+        {
+            return TaxonomyItems.Select(x => GetContent(x, AdminMode)).OfType<T>();
+        }
+
+        public static IEnumerable<IContent> GetContentList(this string IdList, int Language, bool AdminMode = false)
+        {
+            return ContentFactory.MakeList(GetEktronContentDataList(IdList, Language, AdminMode));
+        }
+
+        public static IEnumerable<T> GetContentList<T>(this string IdList, int Language, bool AdminMode = false) where T : IContent
+        {
+            return FilterType<T>(ContentFactory.MakeList(GetEktronContentDataList(IdList, Language, AdminMode)));
+        }
+
+        public static IEnumerable<IContent> GetContentList(this List<long> IdList, int Language, bool AdminMode = false)
+        {
+            return ContentFactory.MakeList(GetEktronContentDataList(IdList, Language, AdminMode));
+        }
+
+        public static IEnumerable<T> GetContentList<T>(this List<long> IdList, int Language, bool AdminMode = false) where T : IContent
+        {
+            return FilterType<T>(ContentFactory.MakeList(GetEktronContentDataList(IdList, Language, AdminMode)));
+        }
+
+        public static IContent GetDynamicContent(this object o)
+        {
+            return HttpContext.Current.GetHttpContextItem<IContent>
+            (
+                "Ektron.TypedDynamicContent",
+                () =>
+                {
+                    return o.GetDynamicContentID().GetContent(FrameworkFactory.CurrentLanguage());
+                }
+            );
+        }
+
         public static long GetDynamicContentID(this object o)
         {
             return HttpContext.Current.GetHttpContextItem<long>
@@ -66,18 +216,6 @@
                 }
             );
 
-        }
-
-        public static IContent GetDynamicContent(this object o)
-        {
-            return HttpContext.Current.GetHttpContextItem<IContent>
-            (
-                "Ektron.TypedDynamicContent",
-                () =>
-                {
-                    return o.GetDynamicContentID().GetContent(FrameworkFactory.CurrentLanguage());
-                }
-            );
         }
 
         public static ContentData GetEktronContentData(this long Id, int Language, bool AdminMode = false, bool disableCache = false)
@@ -208,144 +346,6 @@
             criteria.PagingInfo.TotalRecords = cached.NumberOfRecords; // update criteria
 
             return cached.Items;
-        }
-
-        public static IContent GetContent(this ContentData contentData)
-        {
-            return ContentFactory.MakeItem(contentData);
-        }
-
-        public static IContent GetContent(this long Id, int Language, bool AdminMode = false)
-        {
-            return ContentFactory.MakeItem(GetEktronContentData(Id, Language, AdminMode));
-        }
-
-        public static T GetContent<T>(this long Id, int Language, bool AdminMode = false) where T : IContent
-        {            
-            return (T)ContentFactory.MakeItem(GetEktronContentData(Id, Language, AdminMode));
-        }
-
-        public static IContent GetContent(this TaxonomyItemData TaxonomyItem, bool AdminMode = false)
-        {
-            return GetContent(TaxonomyItem.ItemId, TaxonomyItem.ItemLanguageId, AdminMode);
-        }
-
-        public static T GetContent<T>(this TaxonomyItemData TaxonomyItem, bool AdminMode = false) where T : IContent
-        {
-            return GetContent<T>(TaxonomyItem.ItemId, TaxonomyItem.ItemLanguageId, AdminMode);
-        }
-
-        public static IEnumerable<IContent> GetContentList(this IEnumerable<TaxonomyItemData> TaxonomyItems, bool AdminMode = false)
-        {
-            return TaxonomyItems.Select(x => x.GetContent(AdminMode));
-        }
-
-        public static IEnumerable<T> GetContentList<T>(this IEnumerable<TaxonomyItemData> TaxonomyItems, bool AdminMode = false) where T : IContent
-        {
-            return TaxonomyItems.Select(x => GetContent(x, AdminMode)).OfType<T>();
-        }
-
-        public static IEnumerable<IContent> GetContentList(this string IdList, int Language, bool AdminMode = false)
-        {
-            return ContentFactory.MakeList(GetEktronContentDataList(IdList, Language, AdminMode));
-        }
-
-        public static IEnumerable<T> GetContentList<T>(this string IdList, int Language, bool AdminMode = false) where T : IContent
-        {
-            return FilterType<T>(ContentFactory.MakeList(GetEktronContentDataList(IdList, Language, AdminMode)));
-        }
-
-        public static IEnumerable<IContent> GetContentList(this List<long> IdList, int Language, bool AdminMode = false)
-        {
-            return ContentFactory.MakeList(GetEktronContentDataList(IdList, Language, AdminMode));
-        }
-
-        public static IEnumerable<T> GetContentList<T>(this List<long> IdList, int Language, bool AdminMode = false) where T : IContent
-        {
-            return FilterType<T>(ContentFactory.MakeList(GetEktronContentDataList(IdList, Language, AdminMode)));
-        }
-
-        public static IEnumerable<IContent> GetContent(this IEnumerable<ContentData> contentList)
-        {
-            return ContentFactory.MakeList(contentList);
-        }
-
-        public static IEnumerable<T> GetContent<T>(this IEnumerable<ContentData> contentList) where T : IContent
-        {
-            return FilterType<T>(ContentFactory.MakeList(contentList));
-        }
-
-        public static IEnumerable<IContent> GetContent(this ContentCriteria criteria, bool AdminMode = false)
-        {
-            return ContentFactory.MakeList(criteria.GetEktronContentDataList(AdminMode));
-        }
-
-        public static IEnumerable<T> GetContent<T>(this ContentCriteria criteria, bool AdminMode = false) where T : IContent
-        {
-            return FilterType<T>(ContentFactory.MakeList(criteria.GetEktronContentDataList(AdminMode)));
-        }
-
-        public static IEnumerable<T> FilterType<T>(this IEnumerable<IContent> items) where T : IContent
-        {
-            if (items == null) return Enumerable.Empty<T>();
-
-            return items.OfType<T>();
-        }
-
-        public static List<TaxonomyData> GetAssignedCategories(this IContent c, EkEnumeration.TaxonomyItemType ItemType = EkEnumeration.TaxonomyItemType.Content, PagingInfo PageInfo = null)
-        {
-            if (c == null)
-            {
-                return null;
-            }
-
-            return GetAssignedCategories(c.Id, c.LanguageId, ItemType, PageInfo);
-        }
-
-        public static List<TaxonomyData> GetAssignedCategories(this long Id, int LanguageId, EkEnumeration.TaxonomyItemType ItemType = EkEnumeration.TaxonomyItemType.Content, PagingInfo PageInfo = null)
-        {
-            PagedCachedData<TaxonomyData> TaxonomyItems = null;
-
-            if (PageInfo == null)
-                PageInfo = new PagingInfo() { RecordsPerPage = 100 };
-
-            var criteria = Id.GetTaxonomyItemCriteria();
-            criteria.AddFilter(TaxonomyItemProperty.ItemType, CriteriaFilterOperator.EqualTo, ItemType);
-            criteria.AddFilter(TaxonomyItemProperty.ItemId, CriteriaFilterOperator.EqualTo, Id);
-            criteria.AddFilter(TaxonomyItemProperty.LanguageId, CriteriaFilterOperator.EqualTo, LanguageId);
-            criteria.PagingInfo = PageInfo;
-
-            TaxonomyItems = _CacheManager.CacheItem
-            (
-                criteria.GetCacheKey(true),
-                () =>
-                {
-                    var cache = new PagedCachedData<TaxonomyData>();
-
-                    var api = FrameworkFactory<Ektron.Cms.Framework.Organization.TaxonomyItemManager>.Get(true, LanguageId);
-                    var items = api.GetList(criteria);
-                    cache.NumberOfRecords = criteria.PagingInfo.TotalRecords;
-
-                    if (items != null && items.Count > 0)
-                    {
-                        var tApi = FrameworkFactory<Ektron.Cms.Framework.Organization.TaxonomyManager>.Get(true, LanguageId);
-
-                        var tCriteria = Id.GetTaxonomyCriteria();
-                        tCriteria.PagingInfo = PageInfo;
-                        tCriteria.AddFilter(TaxonomyProperty.Id, CriteriaFilterOperator.In, items.Select(x => x.TaxonomyId).ToList());
-
-                        cache.Items = tApi.GetList(tCriteria).OrderBy(x => x.Path).ToList();
-                    }
-
-                    return cache;
-
-                },
-                CacheInterval
-            );
-
-            PageInfo.TotalRecords = TaxonomyItems.NumberOfRecords;
-
-            return TaxonomyItems.Items.ToList();
         }
     }
 }

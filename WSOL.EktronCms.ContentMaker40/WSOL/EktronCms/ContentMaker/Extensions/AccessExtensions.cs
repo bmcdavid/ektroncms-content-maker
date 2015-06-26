@@ -11,6 +11,30 @@
 
         private static ILogger _Logger = InitializationContext.Locator.Get<ILogger>();
 
+        public static UserPermissionData ContentPermissions(this long ContentId, int LanguageId = -1, long UserId = -1)
+        {
+            if (UserId == -1)
+                UserId = FrameworkFactory.CurrentUserId();
+
+            if (ContentId == 0)
+                ContentId = ContentId.GetDynamicContentID();
+
+            if (LanguageId == -1)
+                LanguageId = FrameworkFactory.CurrentLanguage();
+
+            return _CacheManager.CacheItem<UserPermissionData>
+            (
+                string.Format("WSOL:Cache:ContentPermission:User={0}:Content={1}:Language={2}", UserId, ContentId, LanguageId),
+                () =>
+                {
+                    var permissionManager = FrameworkFactory<Ektron.Cms.Framework.Settings.PermissionManager>.Get(true, LanguageId);
+
+                    return permissionManager.GetUserPermissionForContent(UserId, ContentId, LanguageId);
+                },
+                _CacheManager.QuickInterval
+            );
+        }
+
         /// <summary>
         /// Filters out expired and private content (if user doesn't have access).
         /// </summary>
@@ -43,53 +67,6 @@
             return content;
         }
 
-        public static bool? IsViewable(this IContent content, long UserId = -1)
-        {
-            if (content == null)
-                return null;
-
-            var permission = ContentPermissions(content.Id, content.LanguageId, UserId);
-
-            if (permission == null)
-                return null;
-
-            return permission.CanView;
-        }
-
-        public static bool? IsViewable(this long ContentId, int LanguageId = -1, long UserId = -1, bool FolderPermission = false)
-        {
-            UserPermissionData permission = FolderPermission ? FolderPermissions(ContentId, LanguageId, UserId) : ContentPermissions(ContentId, LanguageId, UserId);
-
-            if (permission == null)
-                return null;
-
-            return permission.CanView;
-        }
-
-        public static UserPermissionData ContentPermissions(this long ContentId, int LanguageId = -1, long UserId = -1)
-        {
-            if (UserId == -1)
-                UserId = FrameworkFactory.CurrentUserId();
-
-            if (ContentId == 0)
-                ContentId = ContentId.GetDynamicContentID();
-
-            if (LanguageId == -1)
-                LanguageId = FrameworkFactory.CurrentLanguage();
-
-            return _CacheManager.CacheItem<UserPermissionData>
-            (
-                string.Format("WSOL:Cache:ContentPermission:User={0}:Content={1}:Language={2}", UserId, ContentId, LanguageId),
-                () =>
-                {
-                    var permissionManager = FrameworkFactory<Ektron.Cms.Framework.Settings.PermissionManager>.Get(true, LanguageId);
-
-                    return permissionManager.GetUserPermissionForContent(UserId, ContentId, LanguageId);
-                },
-                _CacheManager.QuickInterval
-            );
-        }
-
         public static UserPermissionData FolderPermissions(this long FolderId, int LanguageId = -1, long UserId = -1)
         {
             if (UserId == -1)
@@ -112,6 +89,29 @@
                 },
                 _CacheManager.QuickInterval
             );
+        }
+
+        public static bool? IsViewable(this IContent content, long UserId = -1)
+        {
+            if (content == null)
+                return null;
+
+            var permission = ContentPermissions(content.Id, content.LanguageId, UserId);
+
+            if (permission == null)
+                return null;
+
+            return permission.CanView;
+        }
+
+        public static bool? IsViewable(this long ContentId, int LanguageId = -1, long UserId = -1, bool FolderPermission = false)
+        {
+            UserPermissionData permission = FolderPermission ? FolderPermissions(ContentId, LanguageId, UserId) : ContentPermissions(ContentId, LanguageId, UserId);
+
+            if (permission == null)
+                return null;
+
+            return permission.CanView;
         }
     }
 }

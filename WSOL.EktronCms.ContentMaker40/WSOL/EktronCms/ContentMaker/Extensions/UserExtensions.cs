@@ -7,6 +7,11 @@
     {
         private static ICacheManager _CacheManager = InitializationContext.Locator.Get<ICacheManager>();
 
+        public static long GetCurrentUserId(this object o, bool refresh = false)
+        {
+            return FrameworkFactory.CurrentUserId(refresh);
+        }
+
         public static UserData GetUserData(this long id, bool enableCache = true)
         {
             if (id < 1)
@@ -24,12 +29,6 @@
                     enableCache ? _CacheManager.QuickInterval : 0
                 );
         }
-
-        public static long GetCurrentUserId(this object o, bool refresh = false)
-        {
-            return FrameworkFactory.CurrentUserId(refresh);
-        }
-
         public static bool IsCurrentUserLoggedIn(this long id)
         {
             return FrameworkFactory.IsLoggedIn;

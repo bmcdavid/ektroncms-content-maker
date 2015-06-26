@@ -14,29 +14,6 @@
     {
         private static ICacheManager _CacheManager = InitializationContext.Locator.Get<ICacheManager>();
 
-        public static IEnumerable<LocaleData> GetLanguages(this object o, bool siteEnabled = true, bool enableCache = true)
-        {
-            return _CacheManager.CacheItem<IEnumerable<LocaleData>>
-            (
-                string.Format("WSOL:Cache:Languages:SiteEnabled={0}", siteEnabled),
-                () =>
-                {
-                    var api = FrameworkFactory.Get<Ektron.Cms.Framework.Settings.LocaleManager>(true);
-
-                    var items = api.GetEnabledLocales();
-
-                    if (items != null)
-                    {
-                        return items.Where(x => x.SiteEnabled == siteEnabled);
-                    }
-
-                    return null;
-                },
-                enableCache ? _CacheManager.ShortInterval : 0
-            );
-
-        }
-
         public static IEnumerable<MetaData> GetLangaugeMetadata(this int languageId, bool enableCache = true)
         {
             var items = _CacheManager.CacheItem<IEnumerable<MetaData>>
@@ -87,6 +64,29 @@
                 default:
                     return FrameworkFactory.DefaultLanguage;
             }
+        }
+
+        public static IEnumerable<LocaleData> GetLanguages(this object o, bool siteEnabled = true, bool enableCache = true)
+        {
+            return _CacheManager.CacheItem<IEnumerable<LocaleData>>
+            (
+                string.Format("WSOL:Cache:Languages:SiteEnabled={0}", siteEnabled),
+                () =>
+                {
+                    var api = FrameworkFactory.Get<Ektron.Cms.Framework.Settings.LocaleManager>(true);
+
+                    var items = api.GetEnabledLocales();
+
+                    if (items != null)
+                    {
+                        return items.Where(x => x.SiteEnabled == siteEnabled);
+                    }
+
+                    return null;
+                },
+                enableCache ? _CacheManager.ShortInterval : 0
+            );
+
         }
     }
 }

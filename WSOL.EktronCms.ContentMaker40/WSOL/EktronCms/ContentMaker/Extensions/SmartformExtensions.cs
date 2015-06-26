@@ -11,48 +11,6 @@
         private static ICacheManager _CacheManager = InitializationContext.Locator.Get<ICacheManager>();
 
         /// <summary>
-        /// Gets a value for given Content Id and Xpath
-        /// </summary>
-        /// <param name="ContentID"></param>
-        /// <param name="xPath"></param>
-        /// <returns></returns>
-        public static string GetSmartFormFieldValue(this long ContentID, string xPath)
-        {
-            var data = ContentID.GetEktronContentData(ContentID.GetLanguageId(), true, false);
-
-            if (data != null)
-                return GetSmartFormFieldValue(data.Html, xPath);
-
-            return string.Empty;
-        }
-
-        /// <summary>
-        /// Gets a value for given xml string and xpath query
-        /// </summary>
-        /// <param name="XML"></param>
-        /// <param name="xPath"></param>
-        /// <returns></returns>
-        public static string GetSmartFormFieldValue(this string XML, string xPath)
-        {
-            string value = String.Empty;
-
-            if (!String.IsNullOrEmpty(XML))
-            {
-                using (System.IO.StringReader x = new System.IO.StringReader(XML))
-                {
-                    System.Xml.XPath.XPathNavigator nav = new System.Xml.XPath.XPathDocument(x).CreateNavigator();
-                    System.Xml.XPath.XPathNavigator node = nav.SelectSingleNode(xPath);
-
-                    if (node != null)
-                        value = node.InnerXml;
-
-                }
-            }
-
-            return value;
-        }
-
-        /// <summary>
         /// Gets a smartform dropdown as a dictionary
         /// </summary>
         /// <param name="SmartFormId"></param>
@@ -116,6 +74,47 @@
             return slResults;
         }
 
+        /// <summary>
+        /// Gets a value for given Content Id and Xpath
+        /// </summary>
+        /// <param name="ContentID"></param>
+        /// <param name="xPath"></param>
+        /// <returns></returns>
+        public static string GetSmartFormFieldValue(this long ContentID, string xPath)
+        {
+            var data = ContentID.GetEktronContentData(ContentID.GetLanguageId(), true, false);
+
+            if (data != null)
+                return GetSmartFormFieldValue(data.Html, xPath);
+
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Gets a value for given xml string and xpath query
+        /// </summary>
+        /// <param name="XML"></param>
+        /// <param name="xPath"></param>
+        /// <returns></returns>
+        public static string GetSmartFormFieldValue(this string XML, string xPath)
+        {
+            string value = String.Empty;
+
+            if (!String.IsNullOrEmpty(XML))
+            {
+                using (System.IO.StringReader x = new System.IO.StringReader(XML))
+                {
+                    System.Xml.XPath.XPathNavigator nav = new System.Xml.XPath.XPathDocument(x).CreateNavigator();
+                    System.Xml.XPath.XPathNavigator node = nav.SelectSingleNode(xPath);
+
+                    if (node != null)
+                        value = node.InnerXml;
+
+                }
+            }
+
+            return value;
+        }
         /// <summary>
         /// Gets Data from Ektron xsd
         /// </summary>

@@ -13,34 +13,23 @@
 
     public static class EktronFrameworkExtensions
     {
-        public static ContentManager GetContentManager(this ContentCriteria o, int Language, bool AdminMode = false)
-        {
-            return FrameworkFactory<ContentManager>.Get(AdminMode, Language);
-        }
-
-        public static TApi GetFrameworkManager<TApi>(this object o, int Langauge, bool AdminMode = false) where TApi : new()
-        {
-            return FrameworkFactory<TApi>.Get(AdminMode, Langauge);
-        }
-
         public static ContentCriteria GetContentCriteria(this object o, bool returnExpired = false)
         {
-            ContentCriteria criteria = new ContentCriteria();
-            criteria.ReturnMetadata = true;
-
-            if (returnExpired)
-            {
-                criteria.AddFilter(ContentProperty.IsArchived, CriteriaFilterOperator.GreaterThan, -1);
-            }
-
-            return criteria;
+            return GetContentCriteriaExtended<ContentCriteria>(o, returnExpired);
         }
 
         public static ContentCriteria GetContentCriteria<TModel>(this object o, bool returnExpired = false) where TModel : IContent
         {
-            ContentCriteria criteria = GetContentCriteria(o, returnExpired);
+            return GetContentCriteria<TModel, ContentCriteria>(o, returnExpired);
+        }
+
+        public static TCriteria GetContentCriteria<TModel, TCriteria>(this object o, bool returnExpired = false)
+            where TModel : IContent
+            where TCriteria : ContentCriteria
+        {
+            TCriteria criteria = GetContentCriteriaExtended<TCriteria>(o, returnExpired);
             Type t = typeof(TModel);
-            
+
             if (t.IsAbstract || t.IsInterface) // many types
             {
                 var types = t.IsInterface ? t.ScanForInterface() : t.ScanForBaseClass();
@@ -57,7 +46,25 @@
                 criteria.AddFilter(ContentProperty.XmlConfigurationId, CriteriaFilterOperator.EqualTo, t.GetXmlConfigId());
             }
 
-            return criteria;
+            return criteria as TCriteria;
+        }
+
+        public static T GetContentCriteriaExtended<T>(this object o, bool returnExpired = false) where T : ContentCriteria
+        {
+            T criteria = typeof(T).NewInstance<T>();
+            criteria.ReturnMetadata = true;
+
+            if (returnExpired)
+            {
+                criteria.AddFilter(ContentProperty.IsArchived, CriteriaFilterOperator.GreaterThan, -1);
+            }
+
+            return criteria as T;
+        }
+
+        public static ContentManager GetContentManager(this ContentCriteria o, int Language, bool AdminMode = false)
+        {
+            return FrameworkFactory<ContentManager>.Get(AdminMode, Language);
         }
 
         public static FolderCriteria GetFolderCriteria(this object o)
@@ -65,9 +72,9 @@
             return new FolderCriteria();
         }
 
-        public static UserCriteria GetUserCriteria(this object o)
+        public static TApi GetFrameworkManager<TApi>(this object o, int Langauge, bool AdminMode = false) where TApi : new()
         {
-            return new UserCriteria();
+            return FrameworkFactory<TApi>.Get(AdminMode, Langauge);
         }
 
         public static TaxonomyCriteria GetTaxonomyCriteria(this object o)
@@ -80,5 +87,9 @@
             return new TaxonomyItemCriteria();
         }
 
+        public static UserCriteria GetUserCriteria(this object o)
+        {
+            return new UserCriteria();
+        }
     }
 }
