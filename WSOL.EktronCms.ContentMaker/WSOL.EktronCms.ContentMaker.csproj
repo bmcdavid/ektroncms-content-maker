@@ -66,6 +66,7 @@
     <Compile Include="Attributes\ContentDescriptorAttribute.cs" />
     <Compile Include="Attributes\StringAttribute.cs" />
     <Compile Include="Attributes\TemplateDescriptorAttribute.cs" />
+    <Compile Include="ContentMakerConfigureContainer.cs" />
     <Compile Include="DebugInformation.cs" />
     <Compile Include="Enums\Content.cs" />
     <Compile Include="Enums\Language.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Interfaces\IErrorPageModuleSetup.cs" />
     <Compile Include="Interfaces\IGlossary.cs" />
     <Compile Include="Interfaces\IGlossaryFactory.cs" />
+    <Compile Include="Interfaces\IIdentifier.cs" />
     <Compile Include="Interfaces\IMetaData.cs" />
     <Compile Include="Interfaces\INavigation.cs" />
     <Compile Include="Interfaces\INavigationFactory.cs" />

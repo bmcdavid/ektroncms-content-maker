@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public interface IGlossary
+    public interface IGlossary : IIdentifier
     {
         int GlossaryLanguageId { get; set; }
 

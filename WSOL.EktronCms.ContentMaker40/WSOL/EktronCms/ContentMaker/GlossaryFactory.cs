@@ -14,6 +14,8 @@
     /// </summary>
     public class GlossaryFactory : IGlossaryFactory
     {
+        protected static ICacheManager CacheManager = InitializationContext.Locator.Get<ICacheManager>();
+
         public static IEnumerable<IGlossary> GetGlossaries<T>(int pageSize = 1000) where T : IContent, IGlossary
         {
             long xmlId = typeof(T).GetXmlConfigId();
@@ -29,11 +31,13 @@
             List<long> xmlTypes = glossaryConfigTypes ?? _GetAllGlossaryTypes();
 
             if (xmlTypes == null || xmlTypes.Count == 0)
+            {
                 return null;
+            }
 
-            return HttpContext.Current.GetHttpContextItem<IEnumerable<IGlossary>>
+            return CacheManager.CacheItem // HttpContext.Current.GetHttpContextItem<IEnumerable<IGlossary>>
             (
-                "WSOL:Glossaries" + string.Join(":", xmlTypes) + pageSize,
+                string.Format("WSOL:Cache:LanguageGlossaries:{0}:{1}", string.Join(",", xmlTypes), pageSize),
                 () =>
                 {
                     var criteria = xmlTypes.GetContentCriteria();
@@ -42,13 +46,16 @@
                     criteria.OrderByField = ContentProperty.Id;
                     criteria.PagingInfo.RecordsPerPage = pageSize;
 
-                    var items = criteria.GetContent(true);
+                    var items = criteria.GetContent(AdminMode: true);
 
                     if (items != null)
-                        return items.OfType<IGlossary>();
+                    {
+                        return items.OfType<IGlossary>().ToList();
+                    }
 
                     return null;
-                }
+                },
+                CacheManager.ShortInterval
             );
 
         }
@@ -73,36 +80,54 @@
             glossaries = glossaries ?? GetGlossaries(); // get defaults if none are given
 
             if (glossaries == null && !glossaries.Any() && returnKeyOnFail)
-                return key;
-
-            string value;
-            int defaultLanguage = FrameworkFactory.DefaultLanguage;
-            int fallbackLanguage = FrameworkFactory.FallbackLanguage;
-
-            foreach (var glossary in glossaries)
             {
-                // Try requested language
-                if (glossary.GlossaryLanguageId == languageId)
-                {
-                    if (glossary.GlossarySet.TryGetValue(key, out value))
-                        return value;
-                }
-                else if (glossary.GlossaryLanguageId == fallbackLanguage)
-                {
-                    if (glossary.GlossarySet.TryGetValue(key, out value))
-                        return value;
-                }
-                // Fallback to language default
-                else if (glossary.GlossaryLanguageId == defaultLanguage)
-                {
-                    if (glossary.GlossarySet.TryGetValue(key, out value))
-                        return value;
-                }
-
+                return key;
             }
 
-            if (returnKeyOnFail)
+            string resolved = CacheManager.CacheItem
+            (
+                string.Format("WSOL:Cache:TranslateKey:Key={0}:Language={1},Glossaries={2}", key, languageId, string.Join(",", glossaries.Select(x => string.Concat(x.Id, ";", x.LanguageId)))),
+                () =>
+                {
+                    string value;
+                    int defaultLanguage = FrameworkFactory.DefaultLanguage;
+                    int fallbackLanguage = FrameworkFactory.FallbackLanguage;
+
+                    foreach (var glossary in glossaries)
+                    {
+                        // Try requested language
+                        if (glossary.GlossaryLanguageId == languageId)
+                        {
+                            if (glossary.GlossarySet.TryGetValue(key, out value))
+                                return value;
+                        }
+                        else if (glossary.GlossaryLanguageId == fallbackLanguage)
+                        {
+                            if (glossary.GlossarySet.TryGetValue(key, out value))
+                                return value;
+                        }
+                        // Fallback to language default
+                        else if (glossary.GlossaryLanguageId == defaultLanguage)
+                        {
+                            if (glossary.GlossarySet.TryGetValue(key, out value))
+                                return value;
+                        }
+
+                    }
+
+                    return null;
+                },
+                CacheManager.ShortInterval
+            );
+
+            if (resolved != null)
+            {
+                return resolved;
+            }
+            else if (returnKeyOnFail)
+            {
                 return key;
+            }
 
             return string.Format("The key: {0} was not found in the dictionary for language {1}", key, languageId);
         }

@@ -19,29 +19,28 @@
             if (Item == null)
                 return null;
 
-            IContent c = new HtmlContent()
-            {
-                Id = Item.Id,
-                LanguageId = Item.LanguageId,
-                FolderId = Item.FolderId,
-                UserId = Item.UserId,
-                XmlConfigId = Item.XmlConfiguration != null ? Item.XmlConfiguration.Id : 0,
-                DateCreated = Item.DateCreated,
-                DateModified = Item.DateModified,
-                StartDate = Item.GoLiveDate.HasValue ? (DateTime)Item.GoLiveDate : DateTime.MinValue,
-                EndDate = Item.ExpireDate,
-                Html = Item.Html,
-                IsPrivate = Item.IsPrivate,
-                Description = Item.Teaser,
-                Title = Item.Title,
-                Url = Item.Quicklink,
-                IsForm = Item.ContType == 2 || Item.ContType == 4,
-                Status = ConvertContentStatus(Item),
-                ArchiveAction = Item.EndDateActionType == Ektron.Cms.Common.EkEnumeration.CMSEndDateAction.Archive_Expire ? ArchiveAction.Remove : ArchiveAction.Remain,
-                MetaData = MakeMetaData(Item).ToList(),
-                ContentType = Item.ContType.ToEnum<Enums.ContentType>(Enums.ContentType.Content),
-                ContentSubType = Item.SubType.ToInt32().ToEnum<Enums.ContentSubtype>(Enums.ContentSubtype.Content)
-            };
+            // using container allows for custom IContent objects, instead of forcing HtmlContent
+            IContent c = InitializationContext.Locator.Get<IContent>();
+            c.Id = Item.Id;
+            c.LanguageId = Item.LanguageId;
+            c.FolderId = Item.FolderId;
+            c.UserId = Item.UserId;
+            c.XmlConfigId = Item.XmlConfiguration != null ? Item.XmlConfiguration.Id : 0;
+            c.DateCreated = Item.DateCreated;
+            c.DateModified = Item.DateModified;
+            c.StartDate = Item.GoLiveDate.HasValue ? (DateTime)Item.GoLiveDate : DateTime.MinValue;
+            c.EndDate = Item.ExpireDate;
+            c.Html = Item.Html;
+            c.IsPrivate = Item.IsPrivate;
+            c.Description = Item.Teaser;
+            c.Title = Item.Title;
+            c.Url = Item.Quicklink;
+            c.IsForm = Item.ContType == 2 || Item.ContType == 4;
+            c.Status = ConvertContentStatus(Item);
+            c.ArchiveAction = Item.EndDateActionType == Ektron.Cms.Common.EkEnumeration.CMSEndDateAction.Archive_Expire ? ArchiveAction.Remove : ArchiveAction.Remain;
+            c.MetaData = MakeMetaData(Item).ToList();
+            c.ContentType = Item.ContType.ToEnum<Enums.ContentType>(Enums.ContentType.Content);
+            c.ContentSubType = Item.SubType.ToInt32().ToEnum<Enums.ContentSubtype>(Enums.ContentSubtype.Content);
 
             if (c.XmlConfigId > 0)
             {
@@ -51,7 +50,6 @@
                 if (!matched.Equals(default(KeyValuePair<Type, ContentDescriptorAttribute>)))
                 {
                     return matched.Key.NewInstance<IContent>(c, c.Html);
-                    //return (IContent)matched.First().Value.ContentMaker(c, c.Html);
                     //return (IContent)Activator.CreateInstance(matched.First().Key, new object[] { content });
                 }
             }
@@ -177,6 +175,7 @@
                     Type = i.Type.ToInt32().ToEnum<Ektron.Cms.Common.EkEnumeration.ContentMetadataType>(Ektron.Cms.Common.EkEnumeration.ContentMetadataType.SearchableProperty)
                 };
         }
+
         #endregion
 
         #region Excplicit Interface Implementations
