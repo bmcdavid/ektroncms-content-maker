@@ -79,7 +79,7 @@
 
             glossaries = glossaries ?? GetGlossaries(); // get defaults if none are given
 
-            if (glossaries == null && !glossaries.Any() && returnKeyOnFail)
+            if ((glossaries == null || !glossaries.Any()) && returnKeyOnFail)
             {
                 return key;
             }
