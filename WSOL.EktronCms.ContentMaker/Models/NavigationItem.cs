@@ -17,6 +17,7 @@
             AssociatedFolders = new List<long>();
             AssociatedTemplates = new List<string>();
             Type = Enums.NavigationItemType.Link;
+            Visible = true;
         }
 
         public virtual long Id { get; set; }
@@ -49,15 +50,15 @@
 
         public virtual List<NavigationItem> Items { get; set; }
 
-        public List<long> AssociatedFolders { get; set; }
+        public virtual List<long> AssociatedFolders { get; set; }
 
-        public List<string> AssociatedTemplates { get; set; }
+        public virtual List<string> AssociatedTemplates { get; set; }
 
         public virtual bool Visible { get; set; }
 
         public virtual Enums.NavigationItemType Type { get; set; }
 
-        public int Level { get; set; }
+        public virtual int Level { get; set; }
 
         IEnumerable<INavigationItem> INavigationItem.Items
         {
