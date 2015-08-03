@@ -20,6 +20,9 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -72,6 +75,7 @@
     <Compile Include="Enums\Language.cs" />
     <Compile Include="Enums\Navigation.cs" />
     <Compile Include="Extensions\CompilationExtensions.cs" />
+    <Compile Include="Extensions\IContentExtensions.cs" />
     <Compile Include="Extensions\MetaDataExtensions.cs" />
     <Compile Include="Extensions\XmlExtensions.cs" />
     <Compile Include="HttpModules\ErrorPageModule.cs" />
@@ -156,12 +160,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\packages\WSOL.MSBuild.AutoVersion.Git.2.1.0\build\WSOL.MsBuild.AutoVersion.Git.targets" Condition="Exists('..\packages\WSOL.MSBuild.AutoVersion.Git.2.1.0\build\WSOL.MsBuild.AutoVersion.Git.targets')" />
+  <Import Project="..\packages\WSOL.MSBuild.AutoVersion.Git.2.1.1\build\WSOL.MsBuild.AutoVersion.Git.targets" Condition="Exists('..\packages\WSOL.MSBuild.AutoVersion.Git.2.1.1\build\WSOL.MsBuild.AutoVersion.Git.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\WSOL.MSBuild.AutoVersion.Git.2.1.0\build\WSOL.MsBuild.AutoVersion.Git.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WSOL.MSBuild.AutoVersion.Git.2.1.0\build\WSOL.MsBuild.AutoVersion.Git.targets'))" />
+    <Error Condition="!Exists('..\packages\WSOL.MSBuild.AutoVersion.Git.2.1.1\build\WSOL.MsBuild.AutoVersion.Git.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WSOL.MSBuild.AutoVersion.Git.2.1.1\build\WSOL.MsBuild.AutoVersion.Git.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
