@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSOL.EktronCms.ContentMaker40", "WSOL.EktronCms.ContentMaker40\WSOL.EktronCms.ContentMaker40.csproj", "{4232C8D6-0FD3-4F7B-A581-9BD8991117E8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{07563C00-00DE-49FE-9DCC-7CFDDC21407D}"
@@ -13,6 +15,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSOL.EktronCms.ContentMaker.Samples", "WSOL.EktronCms.ContentMaker.Samples\WSOL.EktronCms.ContentMaker.Samples.csproj", "{3C948112-FD6B-4B16-9437-05848188F6DD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSOL.EktronCms.ContentMaker", "WSOL.EktronCms.ContentMaker\WSOL.EktronCms.ContentMaker.csproj", "{C6095CD5-D366-4F37-98CD-6C8C22FCA1A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".git", ".git", "{E6E6664A-36DB-4259-A1F7-086E08F98B18}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".wiki", ".wiki", "{A2CB5550-66B1-4660-95A4-1BFE0239BC36}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.md = LICENSE.md
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
