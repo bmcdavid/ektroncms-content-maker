@@ -20,6 +20,38 @@
 
         private static int CacheInterval = _CacheManager.ShortInterval;
 
+        /// <summary>
+        /// Filters out metadata not assigned to the content's folder id.
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public static IContent FilterMetaData(this IContent c)
+        {
+            if (c == null || c.MetaData == null) return c;
+
+            // get folder metadata
+            var cachedFolderMetadata = _CacheManager.CacheItem<List<ContentMetaData>>
+            (
+                string.Format("WSOL:Cache:FolderMetaData:ID={0}:L={1}", c.FolderId, c.LanguageId),
+                () => 
+                {
+                    var foldermanager = c.GetFrameworkManager<Ektron.Cms.Framework.Organization.FolderManager>(c.LanguageId);
+
+                    return foldermanager.GetAssignedMetadata(c.FolderId);
+                },
+                _CacheManager.ShortInterval
+            );
+
+            if (cachedFolderMetadata == null) return c;
+
+            var folderMetaDataKeys = cachedFolderMetadata.Select(x => x.Name).ToList();
+
+            // Assign filtered metadata
+            c.MetaData = c.MetaData.Where(x => folderMetaDataKeys.Contains(x.Name, StringComparer.InvariantCultureIgnoreCase)).ToList();
+
+            return c;
+        }
+
         public static IEnumerable<T> FilterType<T>(this IEnumerable<IContent> items) where T : IContent
         {
             if (items == null) return Enumerable.Empty<T>();
@@ -313,7 +345,7 @@
                 return items;
 
             // ToLong converts strings to long
-            var Ids = IdList.ToEnumerable().Select(x => x.ToInt64()).ToList();;
+            var Ids = IdList.ToEnumerable().Select(x => x.ToInt64()).ToList(); ;
 
             if (Ids == null || Ids.Count == 0)
                 return items;
