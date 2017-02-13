@@ -1,0 +1,239 @@
+﻿/// The purpose of this sample class is to show required components of a model class required by the ContentMaker.
+namespace WSOL.EktronCms.ContentMaker.Samples.Models
+{
+    using System;
+    using System.Runtime.Serialization;
+    using System.Xml.Serialization;
+    using WSOL.EktronCms.ContentMaker.Attributes;
+    using WSOL.EktronCms.ContentMaker.Interfaces;
+    using WSOL.EktronCms.ContentMaker.Models;
+
+    // Makes content serializable 
+    [Serializable]
+    // Notifies the content maker of this type of content, XmlConfigId is retrieved from Ektron System
+    [ContentDescriptor(XmlConfigId = -999, Description = "Sample Content")]
+    // Must always derive from the HtmlContent Base or class that inherites HtmlContent
+    public class SampleContent : HtmlContent
+    {        
+        #region Constructors
+
+        public SampleContent()
+        {
+            _Init(string.Empty);
+        }
+
+        public SampleContent(IContent c, string xml) : base(c)
+        {
+            _Init(xml);
+        }
+
+        /// <summary>
+        /// Common init object for all constructors
+        /// </summary>
+        /// <param name="xml"></param>
+        private void _Init(string xml)
+        {
+            if(!string.IsNullOrEmpty(xml))
+                SmartFormData = WSOL.Library.Xml.DeSerializeFromXml<object>(xml); // change object to match type of deserialized content
+            else
+                SmartFormData = new object(); // new up a smartform instance
+
+            base.SmartFormData = SmartFormData; // required by HTML content for serializing back to Ektron Data
+        }
+
+        #endregion
+
+        #region ContentMaker Functionality
+
+        /// <summary>
+        /// The content maker uses this static function with the ContentMaker attribute to create new instances without using reflection
+        /// <para>Important: This function must be static!</para>
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="xml"></param>
+        /// <returns></returns>
+        [ContentMaker]
+        public static IContent MakeItem(IContent c, string xml)
+        {
+            return new SampleContent(c, xml);
+        }
+
+        #endregion
+
+        #region For Serialization purposes
+
+        /// <summary>
+        /// Used to serialize instance of this object
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context); // populates all properties for HtmlContent
+
+            // Example of mapping properties to serialized content, only defined values are exposed.
+
+            /*
+            info.AddValue("Link", Link, typeof(Hyperlink));
+            info.AddValue("Heading", Heading, typeof(string));
+            info.AddValue("Date", Date, typeof(DateTime));
+            info.AddValue("Body", Body.WrapCDATA(), typeof(string));
+            */
+        }
+
+        /// <summary>
+        /// Used to deserialize string of this object type
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        protected SampleContent(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            _Init(string.Empty);
+
+            // Exmple of consuming serialized content back into strongly typed data.
+
+            /*
+            Link = (Hyperlink)info.GetValue("Link", typeof(Hyperlink));
+            Heading = (string)info.GetValue("Heading", typeof(string));
+            Date = info.GetValue("Date", typeof(object)).FromSerializedDateTimeData();
+            Body = ((string)info.GetValue("Body", typeof(string))).UnWrapCDATA();
+            */
+        }
+
+        #endregion
+
+        #region Properties
+
+        [XmlIgnore] // ignored for serialization purposes
+        public new object SmartFormData // this typed data must match the deserialized content type created with XSD.exe or XSD2Code
+        {
+            get;
+            protected set;
+        }
+
+        // Below properties demonstrate how to map data to and from the underlying SmartFormDataObject which should never be used in code outside of this model
+
+        /*
+
+        private Image _Image;
+        public Image Image
+        {
+            get
+            {
+                if (_Image != null)
+                    return _Image;
+
+                if (SmartFormData.Image != null && SmartFormData.Image.img != null)
+                    _Image = new Image() { Src = SmartFormData.Image.img.src, Alt = SmartFormData.Image.img.src };
+
+                if (_Image == null)
+                    _Image = new Image();
+
+                return _Image;
+            }
+            set
+            {
+                _Image = value;
+
+                if (_Image == null)
+                    _Image = new Image();
+
+                if (SmartFormData.Image == null)
+                    SmartFormData.Image = new ContentTypes.Article.rootImage();
+
+                if (SmartFormData.Image.img == null)
+                    SmartFormData.Image.img = new ContentTypes.Article.imgDesignType();
+
+                SmartFormData.Image.img.src = _Image.Src;
+                SmartFormData.Image.img.alt = _Image.Alt;
+            }
+        }
+
+        private Hyperlink _Link;
+        public Hyperlink Link
+        {
+            get
+            {
+                if (_Link != null)
+                    return _Link;
+
+                if (SmartFormData.Link != null && SmartFormData.Link.a != null)
+                {
+                    _Link = new Hyperlink()
+                    {
+                        Href = SmartFormData.Link.a.href,
+                        Text = SmartFormData.Link.a.Any.GetRichString(),
+                        Target = SmartFormData.Link.a.target ?? string.Empty
+                    };
+                }
+
+                return _Link;
+            }
+            set
+            {
+                _Link = value;
+
+                if (_Link == null)
+                    return;
+
+                if (SmartFormData.Link == null)
+                    SmartFormData.Link = new ContentTypes.Article.rootLink();
+
+                if (SmartFormData.Link.a == null)
+                    SmartFormData.Link.a = new ContentTypes.Article.aDesignType();
+
+                SmartFormData.Link.a.href = _Link.Href;
+                SmartFormData.Link.a.target = _Link.Target;
+                SmartFormData.Link.a.Any = _Link.Text.GetXmlNodes();
+            }
+        }
+
+        public string Heading
+        {
+            get
+            {
+                return SmartFormData.Heading;
+            }
+            set
+            {
+                SmartFormData.Heading = value;
+            }
+        }
+
+        public DateTime Date
+        {
+            get
+            {
+                return SmartFormData.Date;
+            }
+            set
+            {
+                SmartFormData.Date = value;
+            }
+        }
+
+        public string Body
+        {
+            get
+            {
+                if (SmartFormData.Body == null)
+                    SmartFormData.Body = new ContentTypes.Article.rich();
+
+                return SmartFormData.Body.Any.GetRichString();
+            }
+            set
+            {
+                if (SmartFormData.Body == null)
+                    SmartFormData.Body = new ContentTypes.Article.rich();
+
+                SmartFormData.Body.Any = value.GetXmlNodes();
+            }
+        }
+         
+        */
+
+        #endregion
+    }
+
+}

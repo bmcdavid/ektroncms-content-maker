@@ -190,11 +190,11 @@
         {
             LanguageId = LanguageId == 0 ? CurrentLanguage() : LanguageId;
             string accessToken = FrameworkFactory.AccessToken;
-            string key = string.Concat(typeof(T).FullName, LanguageId, accessToken);
+            string key = string.Concat(typeof(T).FullName, LanguageId, accessToken, Admin);
 
             if (Admin && FrameworkMode == FrameworkModeType.BusinessObjects)
             {
-                return HttpContext.Current.GetApplicationItem<T>
+                return HttpContext.Current.GetHttpContextItem<T>
                 (
                     key,
                     () =>
